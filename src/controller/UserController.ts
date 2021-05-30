@@ -1,17 +1,26 @@
-import { getRepository } from "typeorm";
-import { RequestHandler } from "express";
+import { RequestHandler, Request, Response, NextFunction } from "express";
 import { User } from "../entity/User";
 
 // ====================================
 // get
 // ====================================
 export const getUsers: RequestHandler = async (req, res, next) => {
-  const userRepository = getRepository(User);
-  const users = await userRepository.find();
-  res.json({ users });
+  const user = new User();
+  const users = await User.find();
+  res.status(200).json({ users });
 };
 
-// export class UserController {
+// ====================================
+// 新規登録
+// ====================================
+// export const createUser: RequestHandler = (req, res, next) => {
+//   const { email, password } = req.body as { email: string; password: string };
+//   const userRepository = getRepository(User);
+
+//   res.status(201).json({ message: "USERを作成しました" });
+// };
+
+// class UserController {
 //   private userRepository = getRepository(User);
 
 //   async all(request: Request, response: Response, next: NextFunction) {
@@ -32,3 +41,5 @@ export const getUsers: RequestHandler = async (req, res, next) => {
 //     await this.userRepository.remove(userToRemove);
 //   }
 // }
+
+// export default new UserController();

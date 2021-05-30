@@ -3,9 +3,10 @@ import { getUsers } from "../controller/UserController";
 
 const router = Router();
 
-// const result = new UserController();
-
 router.get("/", getUsers);
+
+// router.post("/sign_up", createUser);
+
 // router.get("/", new UserController().all)
 //   res.json("ok");
 

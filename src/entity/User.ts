@@ -5,6 +5,7 @@ import {
   Column,
   BeforeInsert,
 } from "typeorm";
+import { hash, genSalt } from "bcrypt";
 
 @Entity()
 export class User extends BaseEntity {
@@ -20,12 +21,16 @@ export class User extends BaseEntity {
   @Column()
   password: string;
 
-  @Column()
-  confirmPassword: string;
-
   @BeforeInsert()
-  updateDates() {
-    this.confirmPassword = "confirm";
+  // パスワードのハッシュ化
+  passwordHash() {
+    const saltRounds = 10;
+    genSalt(saltRounds, async (err: any, salt: string) => {
+      hash(this.password, salt, (err: any, hash: string) => {
+        this.password = hash;
+        this.save();
+      });
+    });
   }
 
   static validator(name, email, password, confirmPassword) {

@@ -29,7 +29,6 @@ export const createUser: RequestHandler = async (req, res, next) => {
     name,
     email,
     password,
-    confirmPassword,
   });
 
   newUser.save();

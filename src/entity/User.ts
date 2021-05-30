@@ -1,4 +1,10 @@
-import { BaseEntity, Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import {
+  BaseEntity,
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  BeforeInsert,
+} from "typeorm";
 
 @Entity()
 export class User extends BaseEntity {
@@ -16,6 +22,28 @@ export class User extends BaseEntity {
 
   @Column()
   confirmPassword: string;
+
+  @BeforeInsert()
+  updateDates() {
+    this.confirmPassword = "confirm";
+  }
+
+  static validator(name, email, password, confirmPassword) {
+    let error = [];
+
+    if (!email) {
+      error.push("メールアドレスを入力してください");
+    }
+
+    if (!password) {
+      error.push("パスワードを入力してください");
+    }
+
+    if (password !== confirmPassword) {
+      error.push("パスワードと確認用のパスワードが違います");
+    }
+    return error;
+  }
 
   toJSON() {
     return {

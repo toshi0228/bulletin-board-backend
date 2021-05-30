@@ -5,7 +5,6 @@ import { User } from "../entity/User";
 // get
 // ====================================
 export const getUsers: RequestHandler = async (req, res, next) => {
-  const user = new User();
   const users = await User.find();
   res.status(200).json({ users });
 };
@@ -13,12 +12,29 @@ export const getUsers: RequestHandler = async (req, res, next) => {
 // ====================================
 // 新規登録
 // ====================================
-// export const createUser: RequestHandler = (req, res, next) => {
-//   const { email, password } = req.body as { email: string; password: string };
-//   const userRepository = getRepository(User);
+export const createUser: RequestHandler = async (req, res, next) => {
+  const { name, email, password, confirmPassword } = req.body as {
+    name: string;
+    email: string;
+    password: string;
+    confirmPassword: string;
+  };
 
-//   res.status(201).json({ message: "USERを作成しました" });
-// };
+  const error = User.validator(name, email, password, confirmPassword);
+  if (error.length !== 0) {
+    res.status(422).json({ message: "エラーがあります" });
+  }
+
+  const newUser = await User.create({
+    name,
+    email,
+    password,
+    confirmPassword,
+  });
+
+  newUser.save();
+  res.status(201).json({ message: "USERを作成しました" });
+};
 
 // class UserController {
 //   private userRepository = getRepository(User);

@@ -20,7 +20,13 @@ export const createUser: RequestHandler = async (req, res, next) => {
     confirmPassword: string;
   };
 
-  const error = User.validator(name, email, password, confirmPassword);
+  const error = User.createUserValidator(
+    name,
+    email,
+    password,
+    confirmPassword
+  );
+
   if (error.length !== 0) {
     res.status(422).json({ message: "エラーがあります" });
   }
@@ -33,6 +39,30 @@ export const createUser: RequestHandler = async (req, res, next) => {
 
   newUser.save();
   res.status(201).json({ message: "USERを作成しました" });
+};
+
+// ====================================
+// ログイン処理
+// ====================================
+export const login: RequestHandler = async (req, res, next) => {
+  const { email, password } = req.body as { email: string; password: string };
+
+  const error = User.loginValidator(email, password);
+  if (error.length !== 0) {
+    res.status(422).json({ message: "エラーがあります" });
+  }
+
+  const user = await User.find({ email });
+  if (!user.length) {
+    res.status(422).json({ message: "登録されていないユーザーです" });
+  }
+
+  if (user) {
+    const token = User.getToken(user);
+    res.status(201).json({ token });
+  } else {
+    res.status(422).json("エラーです");
+  }
 };
 
 // class UserController {

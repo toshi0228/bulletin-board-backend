@@ -27,8 +27,9 @@ export const createUser: RequestHandler = async (req, res, next) => {
     confirmPassword
   );
 
-  if (error.length !== 0) {
+  if (error.length) {
     res.status(422).json({ message: "エラーがあります" });
+    return;
   }
 
   const newUser = await User.create({
@@ -55,6 +56,7 @@ export const login: RequestHandler = async (req, res, next) => {
   const user = await User.find({ email });
   if (!user.length) {
     res.status(422).json({ message: "登録されていないユーザーです" });
+    return;
   }
 
   if (user) {

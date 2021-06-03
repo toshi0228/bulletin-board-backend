@@ -20,6 +20,7 @@ export const createUser: RequestHandler = async (req, res, next) => {
     confirmPassword: string;
   };
 
+  // バリデーション
   const error = User.createUserValidator(
     name,
     email,
@@ -32,14 +33,26 @@ export const createUser: RequestHandler = async (req, res, next) => {
     return;
   }
 
+  // ユーザーの保存
   const newUser = await User.create({
     name,
     email,
     password,
   });
 
-  newUser.save();
-  res.status(201).json({ message: "USERを作成しました" });
+  await newUser.save();
+
+  // 登録したユーザー取得
+  const user = await User.find({ email });
+  if (!user.length) {
+    res.status(422).json({ message: "登録されていないユーザーです" });
+    return;
+  }
+
+  // トークン取得
+  const token = User.getToken(user);
+
+  res.status(201).json({ token: token });
 };
 
 // ====================================

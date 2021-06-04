@@ -1,5 +1,6 @@
 import { RequestHandler } from "express";
 import { User } from "../../entity/User";
+import { createUserValidator, loginValidator } from "./users.service";
 
 // ====================================
 // get
@@ -21,12 +22,7 @@ export const createUser: RequestHandler = async (req, res, next) => {
   };
 
   // バリデーション
-  const error = User.createUserValidator(
-    name,
-    email,
-    password,
-    confirmPassword
-  );
+  const error = createUserValidator(name, email, password, confirmPassword);
 
   if (error.length) {
     res.status(422).json({ message: "エラーがあります" });
@@ -61,7 +57,7 @@ export const createUser: RequestHandler = async (req, res, next) => {
 export const login: RequestHandler = async (req, res, next) => {
   const { email, password } = req.body as { email: string; password: string };
 
-  const error = User.loginValidator(email, password);
+  const error = loginValidator(email, password);
   if (error.length !== 0) {
     res.status(422).json({ message: "エラーがあります" });
   }

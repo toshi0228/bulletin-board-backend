@@ -44,41 +44,6 @@ export class User extends BaseEntity {
     return token;
   }
 
-  // ====================================
-  // 新規登録のバリデーション
-  // ====================================
-  static createUserValidator(name, email, password, confirmPassword) {
-    let error = [];
-
-    if (!email) {
-      error.push("メールアドレスを入力してください");
-    }
-
-    if (!password) {
-      error.push("パスワードを入力してください");
-    }
-
-    if (password !== confirmPassword) {
-      error.push("パスワードと確認用のパスワードが違います");
-    }
-    return error;
-  }
-
-  // ====================================
-  // ログインのバリデーション
-  // ====================================
-  static loginValidator(email, password) {
-    let error = [];
-    if (!email) {
-      error.push("ログインができません");
-    }
-
-    if (!password) {
-      error.push("ログインができません");
-    }
-    return error;
-  }
-
   toJSON() {
     return {
       ...this,

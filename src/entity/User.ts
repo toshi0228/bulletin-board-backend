@@ -87,11 +87,4 @@ export class User extends BaseEntity {
       confirmPassword: undefined,
     };
   }
-
-  //   static findByName(firstName: string, lastName: string) {
-  //     return this.createQueryBuilder("user")
-  //       .where("user.firstName = :firstName", { firstName })
-  //       .andWhere("user.lastName = :lastName", { lastName })
-  //       .getMany();
-  //   }
 }

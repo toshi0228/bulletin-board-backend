@@ -1,7 +1,10 @@
+import { IUserType } from "./user.type";
+
 // ====================================
 // 新規登録のバリデーション
 // ====================================
-export const createUserValidator = (name, email, password, confirmPassword) => {
+export const createUserValidator = (user: IUserType): string[] => {
+  const { email, password, confirmPassword } = user;
   let error = [];
 
   if (!email) {

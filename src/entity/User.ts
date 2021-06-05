@@ -33,7 +33,6 @@ export class User extends BaseEntity {
   // パスワードのハッシュ化
   @BeforeInsert()
   passwordHash() {
-    console.log("パスワードハッシ");
     const saltRounds = 10;
     genSalt(saltRounds, (err: any, salt: string) => {
       hash(this.password, salt, (err: any, hash: string) => {

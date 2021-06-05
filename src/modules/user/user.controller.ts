@@ -1,6 +1,8 @@
 import { RequestHandler } from "express";
 import { User } from "../../entity/User";
 import { createUserValidator, loginValidator } from "./user.service";
+import UserRepository from "./user.repository";
+import { IUserType } from "./user.type";
 
 // ====================================
 // get
@@ -14,41 +16,39 @@ export const getUsers: RequestHandler = async (req, res, next) => {
 // 新規登録
 // ====================================
 export const createUser: RequestHandler = async (req, res, next) => {
-  const { name, email, password, confirmPassword } = req.body as {
-    name: string;
-    email: string;
-    password: string;
-    confirmPassword: string;
-  };
+  const userData = req.body as IUserType;
 
   // バリデーション
-  const error = createUserValidator(name, email, password, confirmPassword);
-
+  const error = createUserValidator(userData);
   if (error.length) {
     res.status(422).json({ message: "エラーがあります" });
     return;
   }
 
-  // ユーザーの保存
-  const newUser = await User.create({
-    name,
-    email,
-    password,
-  });
+  // ユーザーの保存処理
+  await UserRepository.save(userData);
 
-  await newUser.save();
+  // // ユーザーの保存
+  // const newUser = await User.create({
+  //   name,
+  //   email,
+  //   password,
+  // });
 
-  // 登録したユーザー取得
-  const user = await User.find({ email });
-  if (!user.length) {
-    res.status(422).json({ message: "登録されていないユーザーです" });
-    return;
-  }
+  // await newUser.save();
 
-  // トークン取得
-  const token = User.getToken(user);
+  // // 登録したユーザー取得
+  // const user = await User.find({ email });
+  // if (!user.length) {
+  //   res.status(422).json({ message: "登録されていないユーザーです" });
+  //   return;
+  // }
 
-  res.status(201).json({ token: token });
+  // // トークン取得
+  // const token = User.getToken(user);
+
+  // res.status(201).json({ token: token });
+  res.status(201).json({ ok: "ok" });
 };
 
 // ====================================

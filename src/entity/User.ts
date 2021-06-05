@@ -4,6 +4,8 @@ import {
   PrimaryGeneratedColumn,
   Column,
   BeforeInsert,
+  CreateDateColumn,
+  UpdateDateColumn,
 } from "typeorm";
 import { hash, genSalt } from "bcrypt";
 import { sign } from "jsonwebtoken";
@@ -22,9 +24,16 @@ export class User extends BaseEntity {
   @Column()
   password: string;
 
-  @BeforeInsert()
+  @CreateDateColumn()
+  readonly createdAt?: Date;
+
+  @UpdateDateColumn()
+  readonly updatedAt?: Date;
+
   // パスワードのハッシュ化
+  @BeforeInsert()
   passwordHash() {
+    console.log("パスワードハッシ");
     const saltRounds = 10;
     genSalt(saltRounds, (err: any, salt: string) => {
       hash(this.password, salt, (err: any, hash: string) => {

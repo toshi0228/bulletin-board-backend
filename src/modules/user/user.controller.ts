@@ -1,6 +1,6 @@
 import { RequestHandler } from "express";
 import { User } from "../../entity/User";
-import { createUserValidator, loginValidator } from "./users.service";
+import { createUserValidator, loginValidator } from "./user.service";
 
 // ====================================
 // get

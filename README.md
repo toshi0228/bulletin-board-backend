@@ -1,7 +1,16 @@
-# Awesome Project Build with TypeORM
+# 環境設定の立ち上げ
 
-Steps to run this project:
+1.設定ファイルを立ち上げる
+src と同じ階層に、.env ファイルを作成
 
-1. Run `npm i` command
-2. Run `docker-compose up` command
-3. Run `npm start` command
+2. env ファイルに以下を追加(※ x に適当な文字を入れる)
+   JWT_SECRET="xxxxx"
+
+3. パッケージを install
+   `npm install`
+
+4. mysql を立ち上げる
+   `docker-compose up -d`
+
+5. アプリを立ち上げる
+   `npm start`

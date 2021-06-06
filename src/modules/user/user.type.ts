@@ -4,3 +4,8 @@ export interface IUserType {
   password: string;
   confirmPassword: string;
 }
+
+export interface ILoginQueryType {
+  email: string;
+  password: string;
+}

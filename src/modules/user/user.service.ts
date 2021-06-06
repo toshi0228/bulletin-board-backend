@@ -1,4 +1,4 @@
-import { IUserType } from "./user.type";
+import { IUserType, ILoginQueryType } from "./user.type";
 
 // ====================================
 // 新規登録のバリデーション
@@ -25,7 +25,8 @@ export const createUserValidator = (user: IUserType): string[] => {
 // ====================================
 // ログインのバリデーション
 // ====================================
-export const loginValidator = (email, password) => {
+export const loginValidator = (user: ILoginQueryType) => {
+  const { email, password } = user;
   let error = [];
   if (!email) {
     error.push("ログインができません");

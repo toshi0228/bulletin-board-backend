@@ -2,7 +2,7 @@ import { RequestHandler } from "express";
 import { User } from "../../entity/User";
 import { createUserValidator, loginValidator } from "./user.service";
 import UserRepository from "./user.repository";
-import { IUserType } from "./user.type";
+import { IUserType, ILoginQueryType } from "./user.type";
 
 // ====================================
 // get
@@ -28,48 +28,39 @@ export const createUser: RequestHandler = async (req, res, next) => {
   // ユーザーの保存処理
   await UserRepository.save(userData);
 
-  // // ユーザーの保存
-  // const newUser = await User.create({
-  //   name,
-  //   email,
-  //   password,
-  // });
+  // 登録したユーザーの取得
+  const user = await UserRepository.findOne(userData);
+  if (!user) {
+    res.status(422).json({ message: "登録されていないユーザーです" });
+    return;
+  }
 
-  // await newUser.save();
+  // トークン取得
+  const token = UserRepository.getToken(user);
 
-  // // 登録したユーザー取得
-  // const user = await User.find({ email });
-  // if (!user.length) {
-  //   res.status(422).json({ message: "登録されていないユーザーです" });
-  //   return;
-  // }
-
-  // // トークン取得
-  // const token = User.getToken(user);
-
-  // res.status(201).json({ token: token });
-  res.status(201).json({ ok: "ok" });
+  res.status(201).json({ token: token });
 };
 
 // ====================================
 // ログイン処理
 // ====================================
 export const login: RequestHandler = async (req, res, next) => {
-  const { email, password } = req.body as { email: string; password: string };
+  const userData = req.body as ILoginQueryType;
 
-  const error = loginValidator(email, password);
+  const error = loginValidator(userData);
+
   if (error.length !== 0) {
     res.status(422).json({ message: "エラーがあります" });
   }
 
-  const user = await User.find({ email });
-  if (!user.length) {
+  const user = await UserRepository.findOne(userData);
+  if (!user) {
     res.status(422).json({ message: "登録されていないユーザーです" });
     return;
   }
 
   if (user) {
-    const token = User.getToken(user);
+    const token = UserRepository.getToken(user);
     res.status(201).json({ token });
   } else {
     res.status(422).json("エラーです");

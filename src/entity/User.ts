@@ -8,7 +8,6 @@ import {
   UpdateDateColumn,
 } from "typeorm";
 import { hash, genSalt } from "bcrypt";
-import { sign } from "jsonwebtoken";
 
 @Entity()
 export class User extends BaseEntity {
@@ -40,16 +39,6 @@ export class User extends BaseEntity {
         this.save();
       });
     });
-  }
-
-  // =============================
-  // トークンの取得
-  // =============================
-  static getToken(user) {
-    const token = sign({ userId: user.id }, process.env.JWT_SECRET, {
-      expiresIn: "1h",
-    });
-    return token;
   }
 
   toJSON() {

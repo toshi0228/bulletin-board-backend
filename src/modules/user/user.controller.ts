@@ -1,16 +1,7 @@
 import { RequestHandler } from "express";
-import { User } from "../../entity/User";
 import { createUserValidator, loginValidator } from "./user.service";
 import UserRepository from "./user.repository";
 import { IUserType, ILoginQueryType } from "./user.type";
-
-// ====================================
-// get
-// ====================================
-export const getUsers: RequestHandler = async (req, res, next) => {
-  const users = await User.find();
-  res.status(200).json({ users });
-};
 
 // ====================================
 // 新規登録

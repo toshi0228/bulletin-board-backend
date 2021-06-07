@@ -1,22 +1,39 @@
 import { sign } from "jsonwebtoken";
 import { User } from "../../entity/User";
 import { IUserType, ILoginQueryType } from "./user.type";
+import { hash, genSalt } from "bcrypt";
 
 class UserRepository {
   User = new User();
 
+  // =============================
   // ユーザーの保存
+  // =============================
   async save(user: IUserType) {
     const newUser = await User.create(user);
-    await newUser.save();
+    await this.passwordHashSave(newUser);
   }
 
+  // =============================
   // ユーザーの取得
+  // =============================
   async findOne(user: IUserType | ILoginQueryType) {
     const { email } = user;
 
     const result = await User.findOne({ email });
     return result;
+  }
+  // =============================
+  // パスワードのハッシュ化
+  // =============================
+  async passwordHashSave(user) {
+    const saltRounds = 10;
+    genSalt(saltRounds, async (err: any, salt: string) => {
+      hash(user.password, salt, (err: any, hash: string) => {
+        user.password = hash;
+        user.save();
+      });
+    });
   }
 
   // =============================

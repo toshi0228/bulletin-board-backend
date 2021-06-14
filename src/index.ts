@@ -3,7 +3,7 @@ import { createConnection } from "typeorm";
 import * as express from "express";
 import { Router } from "express";
 import * as bodyParser from "body-parser";
-import { usersRoutes } from "./routes";
+import { usersRoutes, bulletinBoardRoutes } from "./routes";
 import * as cors from "cors";
 
 createConnection()
@@ -18,6 +18,7 @@ createConnection()
 
     // ルーティング
     app.use("/user", usersRoutes);
+    app.use("/bulletin-board", bulletinBoardRoutes);
 
     // start express server
     app.listen(3000);

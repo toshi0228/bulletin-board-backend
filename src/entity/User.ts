@@ -5,7 +5,9 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
+  OneToMany,
 } from "typeorm";
+import { BulletinBoard } from "./bulletinBoard";
 
 @Entity()
 export class User extends BaseEntity {
@@ -20,6 +22,9 @@ export class User extends BaseEntity {
 
   @Column()
   password: string;
+
+  @OneToMany(() => BulletinBoard, (bulletinBoard) => bulletinBoard.user)
+  bulletinBoards: BulletinBoard[];
 
   @CreateDateColumn()
   readonly createdAt?: Date;

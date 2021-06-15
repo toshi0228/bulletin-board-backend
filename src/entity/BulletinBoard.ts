@@ -4,6 +4,7 @@ import {
   Column,
   ManyToOne,
   BaseEntity,
+  JoinColumn,
 } from "typeorm";
 import { User } from "./User";
 
@@ -16,5 +17,6 @@ export class BulletinBoard extends BaseEntity {
   url: string;
 
   @ManyToOne(() => User, (user) => user.bulletinBoards)
+  @JoinColumn({ name: "userId" })
   user: User;
 }

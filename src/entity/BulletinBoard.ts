@@ -8,7 +8,7 @@ import {
 } from "typeorm";
 import { User } from "./User";
 
-@Entity()
+@Entity({ name: "bulletinBoard" })
 export class BulletinBoard extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
@@ -17,6 +17,6 @@ export class BulletinBoard extends BaseEntity {
   url: string;
 
   @ManyToOne(() => User, (user) => user.bulletinBoards)
-  @JoinColumn({ name: "userId" })
+  @JoinColumn({ name: "name" })
   user: User;
 }

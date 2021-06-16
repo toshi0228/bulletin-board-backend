@@ -2,6 +2,7 @@ import { RequestHandler } from "express";
 import { bulletinBoardType } from "./bulletinBoard.type";
 
 export const getBulletinBoards: RequestHandler = (req, res, next) => {
+  console.log("リクエストがきた");
   res.status(200).json({ ok: "ok" });
 };
 

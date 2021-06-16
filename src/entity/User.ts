@@ -9,7 +9,7 @@ import {
 } from "typeorm";
 import { BulletinBoard } from "./bulletinBoard";
 
-@Entity()
+@Entity({ name: "users" })
 export class User extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;

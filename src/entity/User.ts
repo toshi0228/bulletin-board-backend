@@ -5,11 +5,12 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
+  JoinColumn,
   OneToMany,
 } from "typeorm";
 import { BulletinBoard } from "./bulletinBoard";
 
-@Entity({ name: "users" })
+@Entity({ name: "user" })
 export class User extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
@@ -23,8 +24,8 @@ export class User extends BaseEntity {
   @Column()
   password: string;
 
-  @OneToMany(() => BulletinBoard, (bulletinBoard) => bulletinBoard.user)
-  bulletinBoards: BulletinBoard[];
+  // @OneToMany(() => BulletinBoard, (bulletinBoard) => bulletinBoard.user)
+  // bulletinBoards?: BulletinBoard[];
 
   @CreateDateColumn()
   readonly createdAt?: Date;

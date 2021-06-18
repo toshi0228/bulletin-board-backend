@@ -17,6 +17,7 @@ createConnection()
     app.use(cors());
 
     // ルーティング
+    app.use("/", (req, res) => res.json("ok"));
     app.use("/user", usersRoutes);
     app.use("/bulletin-board", bulletinBoardRoutes);
 

@@ -16,7 +16,7 @@ export class BulletinBoard extends BaseEntity {
   @Column()
   url: string;
 
-  @ManyToOne(() => User, (user) => user.bulletinBoards)
-  @JoinColumn({ name: "name" })
-  user: User;
+  // @ManyToOne(() => User, (user) => user.bulletinBoards)
+  // @JoinColumn({ name: "user" })
+  // user: User;
 }

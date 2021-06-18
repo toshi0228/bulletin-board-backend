@@ -22,7 +22,9 @@ createConnection()
     app.use("/bulletin-board", bulletinBoardRoutes);
 
     // start express server
-    app.listen(3000);
+    app.listen(3000, () =>
+      console.log("ポート3000で接続, http://localhost:3000")
+    );
 
     // insert new users for test
     // await connection.manager.save(

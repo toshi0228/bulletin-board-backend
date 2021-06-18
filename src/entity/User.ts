@@ -5,10 +5,9 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
-  JoinColumn,
   OneToMany,
 } from "typeorm";
-import { BulletinBoard } from "./bulletinBoard";
+import { BulletinBoard } from "./BulletinBoard";
 
 @Entity({ name: "user" })
 export class User extends BaseEntity {
@@ -25,7 +24,8 @@ export class User extends BaseEntity {
   password: string;
 
   // @OneToMany(() => BulletinBoard, (bulletinBoard) => bulletinBoard.user)
-  // bulletinBoards?: BulletinBoard[];
+  @OneToMany(() => BulletinBoard, (bulletinBoard) => bulletinBoard.user_id)
+  bulletinBoards?: BulletinBoard[];
 
   @CreateDateColumn()
   readonly createdAt?: Date;

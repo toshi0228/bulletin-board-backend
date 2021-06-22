@@ -23,9 +23,8 @@ export class User extends BaseEntity {
   @Column()
   password: string;
 
-  // @OneToMany(() => BulletinBoard, (bulletinBoard) => bulletinBoard.user)
-  @OneToMany(() => BulletinBoard, (bulletinBoard) => bulletinBoard.user_id)
-  bulletinBoards?: BulletinBoard[];
+  @OneToMany(() => BulletinBoard, (bulletinBoard) => bulletinBoard.user)
+  bulletinBoards: BulletinBoard[];
 
   @CreateDateColumn()
   readonly createdAt?: Date;

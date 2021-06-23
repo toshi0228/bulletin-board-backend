@@ -1,5 +1,6 @@
 import { RequestHandler } from "express";
 import { bulletinBoardType } from "./bulletinBoard.type";
+import BulletinBoardRepository from "./bulletinBoard.repository";
 
 export const getBulletinBoards: RequestHandler = (req, res, next) => {
   console.log("リクエストがきた");
@@ -11,7 +12,7 @@ export const getBulletinBoards: RequestHandler = (req, res, next) => {
 // ====================================
 export const createBulletinBoard: RequestHandler = async (req, res, next) => {
   const bulletinBoardData = req.body as bulletinBoardType;
-  console.log(bulletinBoardData);
+  await BulletinBoardRepository.save(bulletinBoardData);
 
   res.status(200).json("成功");
 };

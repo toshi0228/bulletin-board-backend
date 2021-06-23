@@ -4,7 +4,7 @@ import { IUserType, ILoginQueryType } from "./user.type";
 import { hash, genSalt } from "bcrypt";
 
 class UserRepository {
-  User = new User();
+  // User = new User();
 
   // =============================
   // ユーザーの保存

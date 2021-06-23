@@ -14,8 +14,15 @@ export class BulletinBoard extends BaseEntity {
   id: number;
 
   @Column()
+  title: string;
+
+  @Column()
   url: string;
 
+  @Column()
+  userId: number;
+
   @ManyToOne(() => User, (user) => user.bulletinBoards)
+  @JoinColumn({ name: "userId" })
   user: User;
 }

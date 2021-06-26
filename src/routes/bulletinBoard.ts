@@ -3,10 +3,11 @@ import {
   getBulletinBoards,
   createBulletinBoard,
 } from "../modules/bulletinBoard/bulletinBoard.module";
+import { authMiddleware } from "../middleware";
 
 const router = Router();
 
-router.get("/", getBulletinBoards);
+router.get("/", authMiddleware, getBulletinBoards);
 router.post("/create", createBulletinBoard);
 
 export default router;

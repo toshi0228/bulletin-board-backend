@@ -1,6 +1,6 @@
 import { sign } from "jsonwebtoken";
 import { User } from "../../entity/User";
-import { IUserType, ILoginQueryType, IFindUserType } from "./user.type";
+import { IUserType, ILoginQueryType } from "./user.type";
 import { hash, genSalt } from "bcrypt";
 
 class UserRepository {

@@ -1,6 +1,7 @@
 import { RequestHandler } from "express";
 import { bulletinBoardType } from "./bulletinBoard.type";
 import BulletinBoardRepository from "./bulletinBoard.repository";
+import { decodedToken } from "../../helper";
 
 // ====================================
 // データの取得
@@ -14,10 +15,17 @@ export const getBulletinBoards: RequestHandler = async (req, res, next) => {
 // 新規登録
 // ====================================
 export const createBulletinBoard: RequestHandler = async (req, res, next) => {
-  const bulletinBoardData = req.body as bulletinBoardType;
+  // jwtからトークンを取得
+  const userId = decodedToken(req.headers.authorization);
+
+  const bulletinBoardData = {
+    ...req.body,
+    userId: Number(userId),
+  } as bulletinBoardType;
 
   try {
     const result = await BulletinBoardRepository.save(bulletinBoardData);
+
     res.status(200).json(result);
   } catch {
     res.status(400).json("失敗です");

@@ -9,3 +9,7 @@ export interface ILoginQueryType {
   email: string;
   password: string;
 }
+
+export interface IFindUserType {
+  userId: number;
+}

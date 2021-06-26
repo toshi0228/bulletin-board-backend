@@ -1,5 +1,5 @@
 export interface bulletinBoardType {
   title: string;
-  content: string;
+  contents: string;
   userId: number;
 }

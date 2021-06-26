@@ -1,6 +1,6 @@
 import { sign } from "jsonwebtoken";
 import { User } from "../../entity/User";
-import { IUserType, ILoginQueryType } from "./user.type";
+import { IUserType, ILoginQueryType, IFindUserType } from "./user.type";
 import { hash, genSalt } from "bcrypt";
 
 class UserRepository {
@@ -23,6 +23,15 @@ class UserRepository {
     const result = await User.findOne({ email });
     return result;
   }
+
+  // =============================
+  // userIdから、ユーザーの取得
+  // =============================
+  async findUser(userId: number) {
+    const result = await User.findOne({ id: userId });
+    return { name: result.name, email: result.email };
+  }
+
   // =============================
   // パスワードのハッシュ化
   // =============================

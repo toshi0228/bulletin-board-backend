@@ -2,9 +2,12 @@ import { RequestHandler } from "express";
 import { bulletinBoardType } from "./bulletinBoard.type";
 import BulletinBoardRepository from "./bulletinBoard.repository";
 
-export const getBulletinBoards: RequestHandler = (req, res, next) => {
-  console.log("リクエストがきた");
-  res.status(200).json({ ok: "ok" });
+// ====================================
+// データの取得
+// ====================================
+export const getBulletinBoards: RequestHandler = async (req, res, next) => {
+  const result = await BulletinBoardRepository.findAll();
+  res.status(200).json(result);
 };
 
 // ====================================
@@ -12,9 +15,13 @@ export const getBulletinBoards: RequestHandler = (req, res, next) => {
 // ====================================
 export const createBulletinBoard: RequestHandler = async (req, res, next) => {
   const bulletinBoardData = req.body as bulletinBoardType;
-  await BulletinBoardRepository.save(bulletinBoardData);
 
-  res.status(200).json("成功");
+  try {
+    const result = await BulletinBoardRepository.save(bulletinBoardData);
+    res.status(200).json(result);
+  } catch {
+    res.status(400).json("失敗です");
+  }
 };
 
 // export const createUser: RequestHandler = async (req, res, next) => {

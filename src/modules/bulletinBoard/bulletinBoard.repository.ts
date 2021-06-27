@@ -2,46 +2,32 @@ import { BulletinBoard } from "../../entity/BulletinBoard";
 import { bulletinBoardType } from "./bulletinBoard.type";
 import UserRepository from "../user/user.repository";
 import { User } from "../../entity/User";
+import { decodedToken } from "../../helper";
+import { bulletinBoardRoutes } from "../../routes";
+import { protectionPersonalInfo } from "../../helper";
 
 class BulletinBoardRepository {
   // =============================
-  // ユーザの取得
+  // 全てのポストデータを取得
   // =============================
   async findAll() {
-    const id = 1;
-    let result = await BulletinBoard.find({
-      relations: ["user", "user.bulletinBoards"],
-      // where: {
-      //   userId: "1",
-      // },
-      // join: {
-      //   alias: "user",
-      //   leftJoinAndSelect: {
-      //     user: "BulletinBoard.user",
-      //   },
-      // },
-      // loadRelationIds: { relations: ["user"] },
-      // join: { alias: "user", leftJoinAndSelect: { user: "user" } },
+    // bulletinBoardエンティティから、ユーザーのリレーションを取得
+    let BulletinBoards = await BulletinBoard.find({
+      relations: ["user"],
     });
-    console.log({ result });
 
-    // const result = await BulletinBoard.find({
-    //   where: {
-    //     userId: 1,
-    //   },
-    // });
+    // 個人情報のemailとpassword等を削除する
+    BulletinBoards.map((BulletinBoard) => {
+      protectionPersonalInfo(BulletinBoard);
+      return BulletinBoard;
+    });
 
-    // const userId = Number(result[0].userId);
-    // const user = await UserRepository.findUser(userId);
-    // console.log(user);
-    // console.log({ result });
-
-    // console.log(result[0].user);
-
-    return result;
+    return BulletinBoards;
   }
 
+  // =============================
   // 新規保存
+  // =============================
   async save(bulletinBoard: bulletinBoardType) {
     const newBulletinBoard = await BulletinBoard.create(bulletinBoard);
     const result = await newBulletinBoard.save();

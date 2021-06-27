@@ -27,8 +27,10 @@ export class User extends BaseEntity {
   bulletinBoards: BulletinBoard[];
 
   @CreateDateColumn()
-  readonly createdAt?: Date;
+  // readonly createdAt?: Date;
+  createdAt: Date;
 
   @UpdateDateColumn()
-  readonly updatedAt?: Date;
+  // readonly updatedAt?: Date;
+  updatedAt: Date;
 }

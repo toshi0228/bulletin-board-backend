@@ -15,7 +15,7 @@ class UserRepository {
   }
 
   // =============================
-  // ユーザーの取得
+  // ユーザーの取得 (emailで取得)
   // =============================
   async findOne(user: IUserType | ILoginQueryType) {
     const { email } = user;
@@ -25,11 +25,11 @@ class UserRepository {
   }
 
   // =============================
-  // userIdから、ユーザーの取得
+  // ユーザーの取得 (userIdで取得)
   // =============================
   async findUser(userId: number) {
     const result = await User.findOne({ id: userId });
-    return { name: result.name, email: result.email };
+    return { id: userId, name: result.name, email: result.email };
   }
 
   // =============================

@@ -19,7 +19,6 @@ export const authMiddleware: RequestHandler = (req, res, next) => {
     token,
     process.env.JWT_SECRET,
     async (error, decodedToken: IdecodedTokenType) => {
-      console.log({ decodedToken });
       if (error) {
         return notAuthorized(res);
       } else {

@@ -7,7 +7,7 @@ import { authMiddleware } from "../middleware";
 
 const router = Router();
 
-router.get("/", authMiddleware, getBulletinBoards);
-router.post("/create", createBulletinBoard);
+router.get("/", getBulletinBoards);
+router.post("/create", authMiddleware, createBulletinBoard);
 
 export default router;

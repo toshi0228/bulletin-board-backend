@@ -52,7 +52,7 @@ export const login: RequestHandler = async (req, res, next) => {
 
   if (user) {
     const token = UserRepository.getToken(user);
-    res.status(201).json({ token });
+    res.status(201).json({ token, userName: user.name });
   } else {
     res.status(422).json("エラーです");
   }

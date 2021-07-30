@@ -32,28 +32,16 @@ export const createBulletinBoard: RequestHandler = async (req, res, next) => {
   }
 };
 
-// export const createUser: RequestHandler = async (req, res, next) => {
-//   const userData = req.body as IUserType;
+// ====================================
+// ポストデータの編集
+// ====================================
+export const editBulletinBoard: RequestHandler = async (req, res, next) => {
+  const editPostData = req.body;
 
-//   // バリデーション
-//   const error = createUserValidator(userData);
-//   if (error.length) {
-//     res.status(422).json({ message: "エラーがあります" });
-//     return;
-//   }
-
-//   // ユーザーの保存処理
-//   await UserRepository.save(userData);
-
-//   // 登録したユーザーの取得
-//   const user = await UserRepository.findOne(userData);
-//   if (!user) {
-//     res.status(422).json({ message: "登録されていないユーザーです" });
-//     return;
-//   }
-
-//   // トークン取得
-//   const token = UserRepository.getToken(user);
-
-//   res.status(201).json({ token: token });
-// };
+  try {
+    const result = await BulletinBoardRepository.edit(editPostData);
+    res.status(200).json({ result });
+  } catch {
+    res.status(400).json("失敗です");
+  }
+};

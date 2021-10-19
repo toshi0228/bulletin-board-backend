@@ -1,5 +1,8 @@
 import { RequestHandler } from "express";
-import { bulletinBoardType } from "./bulletinBoard.type";
+import {
+  bulletinBoardCreateType,
+  bulletinBoardType,
+} from "./bulletinBoard.type";
 import BulletinBoardRepository from "./bulletinBoard.repository";
 import { decodedToken } from "../../helper";
 
@@ -21,7 +24,7 @@ export const createBulletinBoard: RequestHandler = async (req, res, next) => {
   const bulletinBoardData = {
     ...req.body,
     userId: Number(userId),
-  } as bulletinBoardType;
+  } as bulletinBoardCreateType;
 
   try {
     const result = await BulletinBoardRepository.save(bulletinBoardData);

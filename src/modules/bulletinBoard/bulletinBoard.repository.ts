@@ -1,5 +1,9 @@
 import { BulletinBoard } from "../../entity/BulletinBoard";
-import { bulletinBoardType, bulletinBoardEditType } from "./bulletinBoard.type";
+import {
+  bulletinBoardType,
+  bulletinBoardEditType,
+  bulletinBoardCreateType,
+} from "./bulletinBoard.type";
 import { protectionPersonalInfo } from "../../helper";
 
 class BulletinBoardRepository {
@@ -52,10 +56,14 @@ class BulletinBoardRepository {
   // =============================
   // 新規保存
   // =============================
-  async save(bulletinBoard: bulletinBoardType) {
-    const newBulletinBoard = await BulletinBoard.create(bulletinBoard);
-    const result = await newBulletinBoard.save();
-    return result;
+  async save(bulletinBoard: bulletinBoardCreateType) {
+    try {
+      const newBulletinBoard = await BulletinBoard.create(bulletinBoard);
+      const result = await newBulletinBoard.save();
+      return result;
+    } catch (e) {
+      return e;
+    }
   }
 }
 

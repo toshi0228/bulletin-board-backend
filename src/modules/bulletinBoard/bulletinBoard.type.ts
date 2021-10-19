@@ -4,6 +4,14 @@ export interface bulletinBoardType {
   userId: number;
 }
 
+
+export interface bulletinBoardCreateType {
+  title: string;
+  contents: string;
+  userId: number;
+}
+
+
 export interface bulletinBoardEditType {
   id: string;
   title: string;

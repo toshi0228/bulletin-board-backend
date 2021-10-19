@@ -1,13 +1,13 @@
 import { RequestHandler } from "express";
 import { createUserValidator, loginValidator } from "./user.service";
 import UserRepository from "./user.repository";
-import { IUserType, ILoginQueryType } from "./user.type";
+import { ICreateUserType, ILoginQueryType } from "./user.type";
 
 // ====================================
 // 新規登録
 // ====================================
 export const createUser: RequestHandler = async (req, res, next) => {
-  const userData = req.body as IUserType;
+  const userData = req.body as ICreateUserType;
 
   // バリデーション
   const error = createUserValidator(userData);

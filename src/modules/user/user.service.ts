@@ -1,9 +1,9 @@
-import { IUserType, ILoginQueryType } from "./user.type";
+import { ICreateUserType, ILoginQueryType } from "./user.type";
 
 // ====================================
 // 新規登録のバリデーション
 // ====================================
-export const createUserValidator = (user: IUserType): string[] => {
+export const createUserValidator = (user: ICreateUserType): string[] => {
   const { email, password, confirmPassword } = user;
   let error = [];
 

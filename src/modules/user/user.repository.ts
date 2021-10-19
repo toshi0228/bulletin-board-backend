@@ -1,6 +1,6 @@
 import { sign } from "jsonwebtoken";
 import { User } from "../../entity/User";
-import { IUserType, ILoginQueryType } from "./user.type";
+import { ICreateUserType, ILoginQueryType } from "./user.type";
 import { hash, genSalt } from "bcrypt";
 
 class UserRepository {
@@ -9,7 +9,7 @@ class UserRepository {
   // =============================
   // ユーザーの保存
   // =============================
-  async save(user: IUserType) {
+  async save(user: ICreateUserType) {
     const newUser = await User.create(user);
     await this.passwordHashSave(newUser);
   }
@@ -17,7 +17,7 @@ class UserRepository {
   // =============================
   // ユーザーの取得 (emailで取得)
   // =============================
-  async findOne(user: IUserType | ILoginQueryType) {
+  async findOne(user: ICreateUserType | ILoginQueryType) {
     const { email } = user;
 
     const result = await User.findOne({ email });

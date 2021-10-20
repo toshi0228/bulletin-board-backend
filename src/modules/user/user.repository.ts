@@ -1,23 +1,27 @@
 import { sign } from "jsonwebtoken";
 import { User } from "../../entity/User";
-import { ICreateUserType, ILoginQueryType } from "./user.type";
-import { hash, genSalt } from "bcrypt";
+import { ICreateUserType, IGetUserType, ILoginQueryType } from "./user.type";
+import { genSaltSync, hashSync } from "bcrypt";
+import * as console from "console";
 
 class UserRepository {
-  // User = new User();
-
   // =============================
   // ユーザーの保存
   // =============================
   async save(user: ICreateUserType) {
     const newUser = await User.create(user);
-    await this.passwordHashSave(newUser);
+    try {
+      await this.passwordHashSave(newUser);
+    } catch (e) {
+      console.log("失敗しました");
+      return e;
+    }
   }
 
   // =============================
   // ユーザーの取得 (emailで取得)
   // =============================
-  async findOne(user: ICreateUserType | ILoginQueryType) {
+  async findOne(user: IGetUserType | ILoginQueryType) {
     const { email } = user;
 
     const result = await User.findOne({ email });
@@ -37,12 +41,10 @@ class UserRepository {
   // =============================
   async passwordHashSave(user) {
     const saltRounds = 10;
-    genSalt(saltRounds, async (err: any, salt: string) => {
-      hash(user.password, salt, (err: any, hash: string) => {
-        user.password = hash;
-        user.save();
-      });
-    });
+    const salt = genSaltSync(saltRounds);
+    const hash = hashSync(user.password, salt);
+    user.password = hash;
+    await user.save();
   }
 
   // =============================

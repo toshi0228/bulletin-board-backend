@@ -7,6 +7,13 @@ export interface IUserEntityType {
   updatedAt: Date;
 }
 
+export interface IGetUserType {
+  name: string;
+  email: string;
+  password?: string;
+  confirmPassword?: string;
+}
+
 export interface ICreateUserType {
   name: string;
   email: string;

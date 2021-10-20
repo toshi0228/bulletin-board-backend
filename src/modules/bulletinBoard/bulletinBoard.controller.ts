@@ -1,15 +1,12 @@
 import { RequestHandler } from "express";
-import {
-  bulletinBoardCreateType,
-  bulletinBoardType,
-} from "./bulletinBoard.type";
+import { bulletinBoardCreateType } from "./bulletinBoard.type";
 import BulletinBoardRepository from "./bulletinBoard.repository";
 import { decodedToken } from "../../helper";
 
 // ====================================
-// データの取得
+// データの一覧取得
 // ====================================
-export const getBulletinBoards: RequestHandler = async (req, res, next) => {
+export const getListBulletinBoard: RequestHandler = async (req, res, next) => {
   const result = await BulletinBoardRepository.findAll();
   res.status(200).json(result);
 };

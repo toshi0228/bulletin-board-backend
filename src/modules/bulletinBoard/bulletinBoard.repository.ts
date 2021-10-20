@@ -32,7 +32,7 @@ class BulletinBoardRepository {
   async findOne(props: { id: number }) {
     let result = await BulletinBoard.find({ id: props.id });
     // let result = await BulletinBoard.find({ select: ["id"] });
-    return result;
+    return result[0];
   }
 
   // =============================

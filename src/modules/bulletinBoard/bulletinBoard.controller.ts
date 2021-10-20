@@ -12,6 +12,17 @@ export const getListBulletinBoard: RequestHandler = async (req, res, next) => {
 };
 
 // ====================================
+// データの取得
+// ====================================
+export const getByIdBulletinBoard: RequestHandler = async (req, res, next) => {
+  const result = await BulletinBoardRepository.findOne({
+    id: Number(req.params.id),
+  });
+
+  res.status(200).json(result);
+};
+
+// ====================================
 // 新規登録
 // ====================================
 export const createBulletinBoard: RequestHandler = async (req, res, next) => {

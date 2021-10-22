@@ -56,3 +56,17 @@ export const editBulletinBoard: RequestHandler = async (req, res, next) => {
     res.status(400).json("失敗です");
   }
 };
+
+// ====================================
+// ポストデータの削除
+// ====================================
+export const deleteBulletinBoard: RequestHandler = async (req, res, next) => {
+  try {
+    const result = await BulletinBoardRepository.delete({
+      id: Number(req.params.id),
+    });
+    res.status(200).json(result);
+  } catch {
+    res.status(400).json("失敗です");
+  }
+};

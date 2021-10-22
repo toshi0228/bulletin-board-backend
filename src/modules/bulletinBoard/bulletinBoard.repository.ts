@@ -65,6 +65,11 @@ class BulletinBoardRepository {
       return e;
     }
   }
+
+  async delete(param: { id: number }) {
+    const deleteBulletinBoard = await BulletinBoard.delete({ id: param.id });
+    return deleteBulletinBoard;
+  }
 }
 
 export default new BulletinBoardRepository();

@@ -57,13 +57,9 @@ class BulletinBoardRepository {
   // 新規保存
   // =============================
   async save(bulletinBoard: bulletinBoardCreateType) {
-    try {
-      const newBulletinBoard = await BulletinBoard.create(bulletinBoard);
-      const result = await newBulletinBoard.save();
-      return result;
-    } catch (e) {
-      return e;
-    }
+    const newBulletinBoard = await BulletinBoard.create(bulletinBoard);
+    const result = await newBulletinBoard.save();
+    return result;
   }
 
   async delete(param: { id: number }) {

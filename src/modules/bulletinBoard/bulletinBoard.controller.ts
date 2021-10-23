@@ -36,10 +36,11 @@ export const createBulletinBoard: RequestHandler = async (req, res, next) => {
 
   try {
     const result = await BulletinBoardRepository.save(bulletinBoardData);
-
     res.status(200).json(result);
-  } catch {
-    res.status(400).json("失敗です");
+  } catch (e) {
+    if (e.code === "ER_DATA_TOO_LONG")
+      return res.status(400).json("140字までです");
+    res.status(400).json("新規登録に失敗しました");
   }
 };
 
@@ -52,8 +53,10 @@ export const editBulletinBoard: RequestHandler = async (req, res, next) => {
   try {
     const result = await BulletinBoardRepository.edit(editPostData);
     res.status(200).json({ result });
-  } catch {
-    res.status(400).json("失敗です");
+  } catch (e) {
+    if (e.code === "ER_DATA_TOO_LONG")
+      return res.status(400).json("140字までです");
+    res.status(400).json("編集に失敗しました");
   }
 };
 

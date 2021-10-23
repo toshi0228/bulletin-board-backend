@@ -10,8 +10,8 @@ import { authMiddleware } from "../middleware";
 
 const router = Router();
 
-router.get("/", getListBulletinBoard);
-router.get("/:id", getByIdBulletinBoard);
+router.get("/", authMiddleware, getListBulletinBoard);
+router.get("/:id", authMiddleware, getByIdBulletinBoard);
 router.post("/create", authMiddleware, createBulletinBoard);
 router.patch("/edit/:id", authMiddleware, editBulletinBoard);
 router.delete("/delete/:id", authMiddleware, deleteBulletinBoard);

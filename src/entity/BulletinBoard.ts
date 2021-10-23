@@ -17,7 +17,7 @@ export class BulletinBoard extends BaseEntity {
   @Column()
   title: string;
 
-  @Column()
+  @Column({length:25})
   contents: string;
 
   @Column()

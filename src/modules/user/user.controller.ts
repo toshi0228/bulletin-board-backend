@@ -29,7 +29,7 @@ export const createUser: RequestHandler = async (req, res, next) => {
   // トークン取得
   const token = UserRepository.getToken(user);
 
-  res.status(201).json({ token: token });
+  res.status(201).json({ token: token, name: user.name });
 };
 
 // ====================================

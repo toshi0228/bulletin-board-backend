@@ -36,7 +36,7 @@ export const createBulletinBoard: RequestHandler = async (req, res, next) => {
 
   try {
     const result = await BulletinBoardRepository.save(bulletinBoardData);
-    res.status(200).json(result);
+    res.status(201).json(result);
   } catch (e) {
     if (e.code === "ER_DATA_TOO_LONG")
       return res.status(400).json("140字までです");

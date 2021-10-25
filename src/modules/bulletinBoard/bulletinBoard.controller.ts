@@ -2,6 +2,7 @@ import { RequestHandler } from "express";
 import { bulletinBoardCreateType } from "./bulletinBoard.type";
 import BulletinBoardRepository from "./bulletinBoard.repository";
 import { decodedToken } from "../../helper";
+import { validationResult } from "express-validator";
 
 // ====================================
 // データの一覧取得
@@ -26,6 +27,9 @@ export const getByIdBulletinBoard: RequestHandler = async (req, res, next) => {
 // 新規登録
 // ====================================
 export const createBulletinBoard: RequestHandler = async (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) return res.status(400).json("新規登録に失敗しました");
+
   // jwtからトークンを取得
   const userId = decodedToken(req.headers.authorization);
 
@@ -38,8 +42,7 @@ export const createBulletinBoard: RequestHandler = async (req, res, next) => {
     const result = await BulletinBoardRepository.save(bulletinBoardData);
     res.status(201).json(result);
   } catch (e) {
-    if (e.code === "ER_DATA_TOO_LONG")
-      return res.status(400).json("140字までです");
+    if (e.code === "ER_DATA_TOO_LONG") return res.status(400).json("140字までです");
     res.status(400).json("新規登録に失敗しました");
   }
 };
@@ -48,14 +51,16 @@ export const createBulletinBoard: RequestHandler = async (req, res, next) => {
 // ポストデータの編集
 // ====================================
 export const editBulletinBoard: RequestHandler = async (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) return res.status(400).json("編集に失敗しました");
+
   const editPostData = req.body;
 
   try {
     const result = await BulletinBoardRepository.edit(editPostData);
     res.status(200).json({ result });
   } catch (e) {
-    if (e.code === "ER_DATA_TOO_LONG")
-      return res.status(400).json("140字までです");
+    if (e.code === "ER_DATA_TOO_LONG") return res.status(400).json("140字までです");
     res.status(400).json("編集に失敗しました");
   }
 };

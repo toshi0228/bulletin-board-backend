@@ -1,10 +1,10 @@
 import "reflect-metadata";
 import { createConnection } from "typeorm";
 import * as express from "express";
-import { Router } from "express";
 import * as bodyParser from "body-parser";
 import { usersRoutes, bulletinBoardRoutes } from "./routes";
 import * as cors from "cors";
+// import { UserBulletinBoardLiked } from "./entity/user-bulletinBoard-liked";
 
 createConnection()
   .then(async (connection) => {
@@ -21,16 +21,14 @@ createConnection()
     app.use("/bulletin-board", bulletinBoardRoutes);
 
     // start express server
-    app.listen(3000, () =>
-      console.log("ポート3000で接続, http://localhost:3000")
-    );
+    app.listen(3000, () => console.log("ポート3000で接続, http://localhost:3000"));
 
     // insert new users for test
     // await connection.manager.save(
-    //   connection.manager.create(User, {
-    //     firstName: "Timber",
-    //     lastName: "Saw",
-    //     age: 27,
+    //   connection.manager.create(UserBulletinBoardLiked, {
+    //     user_id: 1,
+    //     bulletinBoard_id: 21,
+    //     isLiked: true,
     //   })
     // );
     // await connection.manager.save(

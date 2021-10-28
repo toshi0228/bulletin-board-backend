@@ -1,9 +1,5 @@
 import { BulletinBoard } from "../../entity/BulletinBoard";
-import {
-  bulletinBoardType,
-  bulletinBoardEditType,
-  bulletinBoardCreateType,
-} from "./bulletinBoard.type";
+import { bulletinBoardEditType, bulletinBoardCreateType } from "./bulletinBoard.type";
 import { protectionPersonalInfo } from "../../helper";
 
 class BulletinBoardRepository {

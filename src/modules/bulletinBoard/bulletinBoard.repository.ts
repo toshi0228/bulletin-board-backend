@@ -9,9 +9,11 @@ class BulletinBoardRepository {
   async findAll() {
     // bulletinBoardエンティティから、ユーザーのリレーションを取得
     let BulletinBoards = await BulletinBoard.find({
-      relations: ["user"],
+      relations: ["user", "liked"],
       order: { id: "DESC" },
     });
+
+    console.log(BulletinBoards[1]);
 
     // 個人情報のemailとpassword等を削除する
     BulletinBoards.map((BulletinBoard) => {

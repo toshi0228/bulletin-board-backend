@@ -4,7 +4,6 @@ import * as express from "express";
 import * as bodyParser from "body-parser";
 import { usersRoutes, bulletinBoardRoutes } from "./routes";
 import * as cors from "cors";
-// import { UserBulletinBoardLiked } from "./entity/user-bulletinBoard-liked";
 
 createConnection()
   .then(async (connection) => {
@@ -26,8 +25,8 @@ createConnection()
     // insert new users for test
     // await connection.manager.save(
     //   connection.manager.create(UserBulletinBoardLiked, {
-    //     user_id: 1,
-    //     bulletinBoard_id: 21,
+    //     user_id: 49,
+    //     bulletinBoard_id: 40,
     //     isLiked: true,
     //   })
     // );

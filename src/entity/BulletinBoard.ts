@@ -5,6 +5,8 @@ import {
   ManyToOne,
   BaseEntity,
   JoinColumn,
+  JoinTable,
+  ManyToMany,
 } from "typeorm";
 import { User } from "./User";
 
@@ -25,4 +27,8 @@ export class BulletinBoard extends BaseEntity {
   @ManyToOne(() => User, (user) => user.bulletinBoards)
   @JoinColumn({ name: "userId" })
   user: User;
+
+  @ManyToMany(() => User)
+  @JoinTable()
+  liked: User[];
 }

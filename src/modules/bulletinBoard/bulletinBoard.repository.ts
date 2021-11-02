@@ -1,6 +1,8 @@
 import { BulletinBoard } from "../../entity/BulletinBoard";
+import { User } from "../../entity/User";
 import { bulletinBoardEditType, bulletinBoardCreateType } from "./bulletinBoard.type";
 import { protectionPersonalInfo } from "../../helper";
+import user from "../../routes/user";
 
 class BulletinBoardRepository {
   // =============================
@@ -61,6 +63,25 @@ class BulletinBoardRepository {
   async delete(param: { id: number }) {
     const deleteBulletinBoard = await BulletinBoard.delete({ id: param.id });
     return deleteBulletinBoard;
+  }
+
+  // =============================
+  // いいね作成
+  // =============================
+
+  async liked(param: { id: number }) {
+    console.log("ここまできた");
+    // const deleteBulletinBoard = await BulletinBoard.delete({ id: param.id });
+    let result = await BulletinBoard.findOne({ id: param.id });
+    console.log(result);
+
+    let user = await User.findOne({ id: 48 });
+    console.log("^^^^");
+    console.log(user);
+
+    result.liked = [];
+
+    return "liked";
   }
 }
 

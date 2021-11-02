@@ -5,6 +5,7 @@ import {
   editBulletinBoard,
   getByIdBulletinBoard,
   deleteBulletinBoard,
+  likedBulletinBoard,
 } from "../modules/bulletinBoard/bulletinBoard.module";
 import { authMiddleware } from "../middleware";
 import {
@@ -19,5 +20,6 @@ router.get("/:id", authMiddleware, getByIdBulletinBoard);
 router.post("/create", authMiddleware, createBulletinBoardValidator, createBulletinBoard);
 router.patch("/edit/:id", authMiddleware, editBulletinBoardValidator, editBulletinBoard);
 router.delete("/delete/:id", authMiddleware, deleteBulletinBoard);
+router.post("/liked/:id", authMiddleware, createBulletinBoardValidator, likedBulletinBoard); // いいね
 
 export default router;

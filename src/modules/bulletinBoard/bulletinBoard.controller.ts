@@ -3,6 +3,7 @@ import { bulletinBoardCreateType } from "./bulletinBoard.type";
 import BulletinBoardRepository from "./bulletinBoard.repository";
 import { decodedToken } from "../../helper";
 import { validationResult } from "express-validator";
+import { BulletinBoard } from "../../entity/BulletinBoard";
 
 // ====================================
 // データの一覧取得
@@ -74,6 +75,23 @@ export const deleteBulletinBoard: RequestHandler = async (req, res, next) => {
       id: Number(req.params.id),
     });
     res.status(200).json(result);
+  } catch {
+    res.status(400).json("失敗です");
+  }
+};
+
+// ====================================
+// いいね
+// ====================================
+
+export const likedBulletinBoard: RequestHandler = async (req, res, next) => {
+  try {
+    console.log(likedBulletinBoard);
+    BulletinBoardRepository.liked({
+      id: Number(req.params.id),
+    });
+
+    res.status(200).json("いいね");
   } catch {
     res.status(400).json("失敗です");
   }

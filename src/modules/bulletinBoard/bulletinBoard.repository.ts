@@ -13,8 +13,6 @@ class BulletinBoardRepository {
       order: { id: "DESC" },
     });
 
-    console.log(BulletinBoards[1]);
-
     // 個人情報のemailとpassword等を削除する
     BulletinBoards.map((BulletinBoard) => {
       protectionPersonalInfo(BulletinBoard);

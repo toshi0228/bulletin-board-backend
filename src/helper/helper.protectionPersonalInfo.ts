@@ -1,12 +1,12 @@
-import { IGetUserType, IUserEntityType } from "../modules/user/user.type";
+import { IUserEntityType } from "../modules/user/user.type";
 
-interface IprotectionPersonalInfoProps {
+interface IProtectionPersonalInfoProps {
   user: IUserEntityType;
-  liked: Partial<IUserEntityType>[];
+  liked?: Partial<IUserEntityType>[];
 }
 
 // あるエンティティにネストされたユーザーデータの個人情報を削除する
-export const protectionPersonalInfo = (entity: IprotectionPersonalInfoProps) => {
+export const protectionPersonalInfo = (entity: IProtectionPersonalInfoProps) => {
   delete entity.user.id;
   delete entity.user.password;
   delete entity.user.email;

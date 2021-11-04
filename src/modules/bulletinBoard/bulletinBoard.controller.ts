@@ -4,6 +4,7 @@ import BulletinBoardRepository from "./bulletinBoard.repository";
 import { decodedToken } from "../../helper";
 import { validationResult } from "express-validator";
 import { BulletinBoard } from "../../entity/BulletinBoard";
+import user from "../../routes/user";
 
 // ====================================
 // データの一覧取得
@@ -85,13 +86,16 @@ export const deleteBulletinBoard: RequestHandler = async (req, res, next) => {
 // ====================================
 
 export const likedBulletinBoard: RequestHandler = async (req, res, next) => {
+  // jwtからトークンを取得
+  const userId = decodedToken(req.headers.authorization);
+
   try {
-    console.log(likedBulletinBoard);
-    BulletinBoardRepository.liked({
-      id: Number(req.params.id),
+    const result = await BulletinBoardRepository.liked({
+      bulletinBoardId: Number(req.params.id),
+      userId: Number(userId),
     });
 
-    res.status(200).json("いいね");
+    res.status(200).json(result);
   } catch {
     res.status(400).json("失敗です");
   }

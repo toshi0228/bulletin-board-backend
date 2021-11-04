@@ -3,6 +3,8 @@ import { User } from "../../entity/User";
 import { bulletinBoardEditType, bulletinBoardCreateType } from "./bulletinBoard.type";
 import { protectionPersonalInfo } from "../../helper";
 import user from "../../routes/user";
+import { IUserEntityType } from "../user/user.type";
+import { log } from "util";
 
 class BulletinBoardRepository {
   // =============================
@@ -68,20 +70,19 @@ class BulletinBoardRepository {
   // =============================
   // いいね作成
   // =============================
+  async liked(param: { bulletinBoardId: number; userId: number }) {
+    const bulletinBoard = await BulletinBoard.findOne(param.bulletinBoardId, { relations: ["liked"] });
+    const user = await User.findOne(param.userId);
 
-  async liked(param: { id: number }) {
-    console.log("ここまできた");
-    // const deleteBulletinBoard = await BulletinBoard.delete({ id: param.id });
-    let result = await BulletinBoard.findOne({ id: param.id });
-    console.log(result);
+    bulletinBoard.liked = [...bulletinBoard.liked, user];
+    await bulletinBoard.save();
 
-    let user = await User.findOne({ id: 48 });
-    console.log("^^^^");
-    console.log(user);
+    // 個人情報のemailとpassword等を削除する;
+    const likedUsers = bulletinBoard.liked.map((user) => {
+      return { userId: user.id, name: user.name };
+    });
 
-    result.liked = [];
-
-    return "liked";
+    return likedUsers;
   }
 }
 

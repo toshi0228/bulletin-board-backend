@@ -70,7 +70,7 @@ class BulletinBoardRepository {
   // =============================
   // いいね作成
   // =============================
-  async liked(param: { bulletinBoardId: number; userId: number }) {
+  async createLiked(param: { bulletinBoardId: number; userId: number }) {
     const bulletinBoard = await BulletinBoard.findOne(param.bulletinBoardId, { relations: ["liked"] });
     const user = await User.findOne(param.userId);
 
@@ -83,6 +83,28 @@ class BulletinBoardRepository {
     });
 
     return likedUsers;
+  }
+
+  // =============================
+  // いいね削除
+  // =============================
+  async deleteLiked(param: { bulletinBoardId: number; userId: number }) {
+    const bulletinBoard = await BulletinBoard.findOne(param.bulletinBoardId, { relations: ["liked"] });
+    const deleteUser = await User.findOne(param.userId);
+
+    const newLikedUsers = bulletinBoard.liked.filter((likedUser) => {
+      return likedUser.id !== deleteUser.id;
+    });
+
+    bulletinBoard.liked = newLikedUsers;
+    await bulletinBoard.save();
+
+    // 個人情報のemailとpassword等を削除する;
+    const deletedLikedUsers = newLikedUsers.map((user) => {
+      return { userId: user.id, name: user.name };
+    });
+
+    return deletedLikedUsers;
   }
 }
 

@@ -82,15 +82,34 @@ export const deleteBulletinBoard: RequestHandler = async (req, res, next) => {
 };
 
 // ====================================
-// いいね
+// いいね作成
 // ====================================
 
-export const likedBulletinBoard: RequestHandler = async (req, res, next) => {
+export const createLikedBulletinBoard: RequestHandler = async (req, res, next) => {
   // jwtからトークンを取得
   const userId = decodedToken(req.headers.authorization);
 
   try {
-    const result = await BulletinBoardRepository.liked({
+    const result = await BulletinBoardRepository.createLiked({
+      bulletinBoardId: Number(req.params.id),
+      userId: Number(userId),
+    });
+
+    res.status(200).json(result);
+  } catch {
+    res.status(400).json("失敗です");
+  }
+};
+
+// ====================================
+// いいね削除
+// ====================================
+export const deleteLikedBulletinBoard: RequestHandler = async (req, res, next) => {
+  // jwtからトークンを取得
+  const userId = decodedToken(req.headers.authorization);
+
+  try {
+    const result = await BulletinBoardRepository.deleteLiked({
       bulletinBoardId: Number(req.params.id),
       userId: Number(userId),
     });

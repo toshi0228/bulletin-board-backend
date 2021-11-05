@@ -15,7 +15,7 @@ export const protectionPersonalInfo = (entity: IProtectionPersonalInfoProps) => 
 
   if (entity.liked.length) {
     const result = entity.liked.map((user) => {
-      return { id: user.id };
+      return { id: user.id, name: user.name };
     });
     entity.liked = result;
   }

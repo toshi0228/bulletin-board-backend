@@ -1,18 +1,36 @@
-import {Entity, PrimaryGeneratedColumn, Column} from "typeorm";
+import {
+  BaseEntity,
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+  UpdateDateColumn,
+  OneToMany,
+} from "typeorm";
+import { BulletinBoard } from "./BulletinBoard";
 
-@Entity()
-export class User {
+@Entity({ name: "user" })
+export class User extends BaseEntity {
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @PrimaryGeneratedColumn()
-    id: number;
+  @Column()
+  name: string;
 
-    @Column()
-    firstName: string;
+  @Column()
+  email: string;
 
-    @Column()
-    lastName: string;
+  @Column()
+  password: string;
 
-    @Column()
-    age: number;
+  @OneToMany(() => BulletinBoard, (bulletinBoard) => bulletinBoard.user)
+  bulletinBoards: BulletinBoard[];
 
+  @CreateDateColumn()
+  // readonly createdAt?: Date;
+  createdAt: Date;
+
+  @UpdateDateColumn()
+  // readonly updatedAt?: Date;
+  updatedAt: Date;
 }

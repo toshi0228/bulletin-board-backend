@@ -31,8 +31,7 @@ class BulletinBoardRepository {
   // idから投稿を取得する。
   // =============================
   async findOne(props: { id: number }) {
-    let result = await BulletinBoard.find({ id: props.id });
-    // let result = await BulletinBoard.find({ select: ["id"] });
+    const result = await BulletinBoard.find({ id: props.id });
     return result[0];
   }
 

@@ -3,9 +3,6 @@ import { User } from "../../entity/User";
 import { bulletinBoardEditType, bulletinBoardCreateType } from "./bulletinBoard.type";
 import { protectionPersonalInfo } from "../../helper";
 import user from "../../routes/user";
-import { IUserEntityType } from "../user/user.type";
-import { log } from "util";
-import { type } from "os";
 
 class BulletinBoardRepository {
   // =============================
@@ -31,8 +28,8 @@ class BulletinBoardRepository {
   // idから投稿を取得する。
   // =============================
   async findOne(props: { id: number }) {
-    const result = await BulletinBoard.find({ id: props.id });
-    return result[0];
+    const result = await BulletinBoard.findOne({ id: props.id });
+    return result;
   }
 
   // =============================

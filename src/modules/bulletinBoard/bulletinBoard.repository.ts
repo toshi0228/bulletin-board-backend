@@ -19,7 +19,6 @@ class BulletinBoardRepository {
 
     // 個人情報のemailとpassword等を削除する
     BulletinBoards.map((BulletinBoard) => {
-      console.log(BulletinBoard);
       protectionPersonalInfo(BulletinBoard);
       return BulletinBoard;
     });

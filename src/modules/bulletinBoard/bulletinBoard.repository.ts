@@ -50,8 +50,9 @@ class BulletinBoardRepository {
   // =============================
   // 新規保存
   // =============================
-  async save(bulletinBoard: bulletinBoardCreateType) {
-    const newBulletinBoard = await BulletinBoard.create(bulletinBoard);
+  async save(param: bulletinBoardCreateType) {
+    const newArticle = new BulletinBoard();
+    const newBulletinBoard = await BulletinBoard.create({ ...newArticle, ...param });
     const result = await newBulletinBoard.save();
     return result;
   }

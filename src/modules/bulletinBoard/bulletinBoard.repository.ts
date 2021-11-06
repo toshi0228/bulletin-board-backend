@@ -5,6 +5,7 @@ import { protectionPersonalInfo } from "../../helper";
 import user from "../../routes/user";
 import { IUserEntityType } from "../user/user.type";
 import { log } from "util";
+import { type } from "os";
 
 class BulletinBoardRepository {
   // =============================
@@ -37,18 +38,12 @@ class BulletinBoardRepository {
   // =============================
   // idから投稿を編集する。
   // =============================
-  async edit(bulletinBoard: bulletinBoardEditType) {
-    const newBulletinBoard = bulletinBoard;
+  async edit(param: bulletinBoardEditType) {
     const result = await BulletinBoard.find({
-      id: Number(newBulletinBoard.id),
+      id: Number(param.id),
     });
 
-    // データの更新
-    result[0].title = newBulletinBoard.title;
-    result[0].contents = newBulletinBoard.contents;
-    result[0].userId = newBulletinBoard.userId;
-
-    await BulletinBoard.save(result);
+    await BulletinBoard.save({ ...result, ...param });
     return result;
   }
 

@@ -30,5 +30,5 @@ export class BulletinBoard extends BaseEntity {
 
   @ManyToMany(() => User)
   @JoinTable()
-  liked: User[];
+  likes: User[];
 }

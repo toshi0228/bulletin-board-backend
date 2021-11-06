@@ -3,8 +3,6 @@ import { bulletinBoardCreateType } from "./bulletinBoard.type";
 import BulletinBoardRepository from "./bulletinBoard.repository";
 import { decodedToken } from "../../helper";
 import { validationResult } from "express-validator";
-import { BulletinBoard } from "../../entity/BulletinBoard";
-import user from "../../routes/user";
 
 // ====================================
 // データの一覧取得
@@ -85,12 +83,12 @@ export const deleteBulletinBoard: RequestHandler = async (req, res, next) => {
 // いいね作成
 // ====================================
 
-export const createLikedBulletinBoard: RequestHandler = async (req, res, next) => {
+export const createLikeBulletinBoard: RequestHandler = async (req, res, next) => {
   // jwtからトークンを取得
   const userId = decodedToken(req.headers.authorization);
 
   try {
-    const result = await BulletinBoardRepository.createLiked({
+    const result = await BulletinBoardRepository.createLike({
       bulletinBoardId: Number(req.params.id),
       userId: Number(userId),
     });
@@ -104,12 +102,12 @@ export const createLikedBulletinBoard: RequestHandler = async (req, res, next) =
 // ====================================
 // いいね削除
 // ====================================
-export const deleteLikedBulletinBoard: RequestHandler = async (req, res, next) => {
+export const deleteLikeBulletinBoard: RequestHandler = async (req, res, next) => {
   // jwtからトークンを取得
   const userId = decodedToken(req.headers.authorization);
 
   try {
-    const result = await BulletinBoardRepository.deleteLiked({
+    const result = await BulletinBoardRepository.deleteLike({
       bulletinBoardId: Number(req.params.id),
       userId: Number(userId),
     });

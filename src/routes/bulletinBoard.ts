@@ -5,8 +5,8 @@ import {
   editBulletinBoard,
   getByIdBulletinBoard,
   deleteBulletinBoard,
-  createLikedBulletinBoard,
-  deleteLikedBulletinBoard,
+  createLikeBulletinBoard,
+  deleteLikeBulletinBoard,
 } from "../modules/bulletinBoard/bulletinBoard.module";
 import { authMiddleware } from "../middleware";
 import {
@@ -21,7 +21,7 @@ router.get("/:id", authMiddleware, getByIdBulletinBoard);
 router.post("/create", authMiddleware, createBulletinBoardValidator, createBulletinBoard);
 router.patch("/edit/:id", authMiddleware, editBulletinBoardValidator, editBulletinBoard);
 router.delete("/delete/:id", authMiddleware, deleteBulletinBoard);
-router.post("/liked/:id", authMiddleware, createLikedBulletinBoard); // いいね作成
-router.delete("/liked/:id", authMiddleware, deleteLikedBulletinBoard); // いいね削除
+router.post("/like/:id", authMiddleware, createLikeBulletinBoard); // いいね作成
+router.delete("/like/:id", authMiddleware, deleteLikeBulletinBoard); // いいね削除s
 
 export default router;

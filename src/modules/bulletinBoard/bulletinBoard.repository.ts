@@ -13,7 +13,7 @@ class BulletinBoardRepository {
   async findAll() {
     // bulletinBoardエンティティから、ユーザーのリレーションを取得
     let BulletinBoards = await BulletinBoard.find({
-      relations: ["user", "liked"],
+      relations: ["user", "likes"],
       order: { id: "DESC" },
     });
 
@@ -70,41 +70,41 @@ class BulletinBoardRepository {
   // =============================
   // いいね作成
   // =============================
-  async createLiked(param: { bulletinBoardId: number; userId: number }) {
-    const bulletinBoard = await BulletinBoard.findOne(param.bulletinBoardId, { relations: ["liked"] });
+  async createLike(param: { bulletinBoardId: number; userId: number }) {
+    const bulletinBoard = await BulletinBoard.findOne(param.bulletinBoardId, { relations: ["likes"] });
     const user = await User.findOne(param.userId);
 
-    bulletinBoard.liked = [...bulletinBoard.liked, user];
+    bulletinBoard.likes = [...bulletinBoard.likes, user];
     await bulletinBoard.save();
 
     // 個人情報のemailとpassword等を削除する;
-    const likedUsers = bulletinBoard.liked.map((user) => {
+    const likesUsers = bulletinBoard.likes.map((user) => {
       return { userId: user.id, name: user.name };
     });
 
-    return likedUsers;
+    return likesUsers;
   }
 
   // =============================
   // いいね削除
   // =============================
-  async deleteLiked(param: { bulletinBoardId: number; userId: number }) {
-    const bulletinBoard = await BulletinBoard.findOne(param.bulletinBoardId, { relations: ["liked"] });
+  async deleteLike(param: { bulletinBoardId: number; userId: number }) {
+    const bulletinBoard = await BulletinBoard.findOne(param.bulletinBoardId, { relations: ["likes"] });
     const deleteUser = await User.findOne(param.userId);
 
-    const newLikedUsers = bulletinBoard.liked.filter((likedUser) => {
-      return likedUser.id !== deleteUser.id;
+    const newLikesUsers = bulletinBoard.likes.filter((likesUser) => {
+      return likesUser.id !== deleteUser.id;
     });
 
-    bulletinBoard.liked = newLikedUsers;
+    bulletinBoard.likes = newLikesUsers;
     await bulletinBoard.save();
 
     // 個人情報のemailとpassword等を削除する;
-    const deletedLikedUsers = newLikedUsers.map((user) => {
+    const deletedLikesUsers = newLikesUsers.map((user) => {
       return { userId: user.id, name: user.name };
     });
 
-    return deletedLikedUsers;
+    return deletedLikesUsers;
   }
 }
 

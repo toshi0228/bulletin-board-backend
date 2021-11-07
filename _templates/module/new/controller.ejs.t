@@ -2,7 +2,6 @@
 to: src/modules/<%= h.changeCase.lower(name)%>/<%= h.changeCase.lower(name)%>.controller.ts
 unless_exists: true
 ---
-
 import { Request, Response } from "express";
 
 import {
@@ -15,9 +14,7 @@ import {
   Delete<%= h.changeCase.pascal(name) %>ByIdResponse,
 } from "./<%= h.changeCase.lower(name)%>.type"
 
-
 class <%= h.changeCase.pascal(name)%>Controller {
-
   async getList(req: Request, res: Response<Get<%= h.changeCase.pascal(name) %>Response>) {
     res.status(200).json();
   }

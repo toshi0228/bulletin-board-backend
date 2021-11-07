@@ -4,3 +4,4 @@ unless_exists: true
 ---
 
 export { default as <%= h.changeCase.pascal(name)%>Controller  } from "./<%= h.changeCase.lower(name)%>.controller";
+export { default as <%= h.changeCase.pascal(name)%>Repository  } from "./<%= h.changeCase.lower(name)%>.repository";

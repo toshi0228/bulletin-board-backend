@@ -22,6 +22,6 @@ router.post("/create", authMiddleware, createBulletinBoardValidator, createBulle
 router.patch("/edit/:id", authMiddleware, editBulletinBoardValidator, editBulletinBoard);
 router.delete("/delete/:id", authMiddleware, deleteBulletinBoard);
 router.post("/like/:id", authMiddleware, createLikeBulletinBoard); // いいね作成
-router.delete("/like/:id", authMiddleware, deleteLikeBulletinBoard); // いいね削除s
+router.delete("/like/:id", authMiddleware, deleteLikeBulletinBoard); // いいね削除
 
 export default router;

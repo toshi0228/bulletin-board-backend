@@ -1,6 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany, BaseEntity, JoinColumn } from "typeorm";
 import { User } from "./User";
-import { Like } from "./like";
+import { Like } from "./Like";
 
 @Entity({ name: "bulletinBoard" })
 export class BulletinBoard extends BaseEntity {

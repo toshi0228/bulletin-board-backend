@@ -9,7 +9,7 @@ import {
   BeforeInsert,
 } from "typeorm";
 import { BulletinBoard } from "./BulletinBoard";
-import { Like } from "./like";
+import { Like } from "./Like";
 import { convertJST } from "../helper";
 
 @Entity({ name: "user" })

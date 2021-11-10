@@ -1,5 +1,6 @@
 import { BulletinBoard } from "../../entity/BulletinBoard";
 import { User } from "../../entity/User";
+import { Like } from "../../entity/Like";
 import { bulletinBoardEditType, bulletinBoardCreateType } from "./bulletinBoard.type";
 import { protectionPersonalInfo } from "../../helper";
 import user from "../../routes/user";
@@ -17,6 +18,8 @@ class BulletinBoardRepository {
 
     // 個人情報のemailとpassword等を削除する
     BulletinBoards.map((BulletinBoard) => {
+      console.log("------");
+      console.log(BulletinBoard);
       protectionPersonalInfo(BulletinBoard);
       return BulletinBoard;
     });
@@ -63,40 +66,35 @@ class BulletinBoardRepository {
   // いいね作成
   // =============================
   async createLike(param: { bulletinBoardId: number; userId: number }) {
-    const bulletinBoard = await BulletinBoard.findOne(param.bulletinBoardId, { relations: ["likes"] });
-    const user = await User.findOne(param.userId);
-
-    bulletinBoard.likes = [...bulletinBoard.likes, user];
-    await bulletinBoard.save();
-
-    // 個人情報のemailとpassword等を削除する;
-    const likesUsers = bulletinBoard.likes.map((user) => {
-      return { userId: user.id, name: user.name };
-    });
-
-    return likesUsers;
+    const newLike = new Like();
+    const newLikeParam = await Like.create({ ...newLike, ...param });
+    const result = await newLikeParam.save();
+    return result;
   }
 
   // =============================
   // いいね削除
   // =============================
-  async deleteLike(param: { bulletinBoardId: number; userId: number }) {
-    const bulletinBoard = await BulletinBoard.findOne(param.bulletinBoardId, { relations: ["likes"] });
-    const deleteUser = await User.findOne(param.userId);
+  async deleteLike(id: string) {
+    const deleteLike = await Like.delete(id);
+    return deleteLike;
 
-    const newLikesUsers = bulletinBoard.likes.filter((likesUser) => {
-      return likesUser.id !== deleteUser.id;
-    });
+    // const bulletinBoard = await BulletinBoard.findOne(param.bulletinBoardId, { relations: ["likes"] });
+    // const deleteUser = await User.findOne(param.userId);
+    //
+    // const newLikesUsers = bulletinBoard.likes.filter((likesUser) => {
+    //   return likesUser.id !== deleteUser.id;
+    // });
+    //
+    // bulletinBoard.likes = newLikesUsers;
+    // await bulletinBoard.save();
+    //
+    // // 個人情報のemailとpassword等を削除する;
+    // const deletedLikesUsers = newLikesUsers.map((user) => {
+    //   return { userId: user.id, name: user.name };
+    // });
 
-    bulletinBoard.likes = newLikesUsers;
-    await bulletinBoard.save();
-
-    // 個人情報のemailとpassword等を削除する;
-    const deletedLikesUsers = newLikesUsers.map((user) => {
-      return { userId: user.id, name: user.name };
-    });
-
-    return deletedLikesUsers;
+    return "deletedLikesUsers";
   }
 }
 

@@ -106,11 +106,11 @@ export const deleteLikeBulletinBoard: RequestHandler = async (req, res, next) =>
   // jwtからトークンを取得
   const userId = decodedToken(req.headers.authorization);
 
+  console.log("削除します");
+  console.log(req.body);
+
   try {
-    const result = await BulletinBoardRepository.deleteLike({
-      bulletinBoardId: Number(req.params.id),
-      userId: Number(userId),
-    });
+    const result = await BulletinBoardRepository.deleteLike("8010");
 
     res.status(200).json(result);
   } catch {

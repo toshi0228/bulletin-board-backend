@@ -19,36 +19,36 @@ export class Like extends BaseEntity {
   id: number;
 
   @Column()
-  user_id: number;
+  userId: number;
 
   @Column()
-  bulletinBoard_id: number;
+  bulletinBoardId: number;
 
   @ManyToOne(() => User, (user) => user.likes)
-  @JoinColumn({ name: "user_id" })
+  @JoinColumn({ name: "userId" })
   user: User;
 
   @ManyToOne(() => BulletinBoard, (bulletinBoard) => bulletinBoard.likes)
-  @JoinColumn({ name: "bulletinBoard_id" })
+  @JoinColumn({ name: "bulletinBoardId" })
   bulletinBoard: BulletinBoard;
 
-  @CreateDateColumn()
-  createdAt: Date;
-
-  @UpdateDateColumn()
-  updatedAt: Date;
-
-  // 作成時間保存する前に日本時間の修正して保存
-  @BeforeInsert()
-  createDateReplaceJST() {
-    this.createdAt = convertJST();
-    this.save();
-  }
-
-  // 更新時間保存する前に日本時間の修正して保存
-  @BeforeInsert()
-  updateDateReplaceJST() {
-    this.updatedAt = convertJST();
-    this.save();
-  }
+  // @CreateDateColumn()
+  // createdAt: Date;
+  //
+  // @UpdateDateColumn()
+  // updatedAt: Date;
+  //
+  // // 作成時間保存する前に日本時間の修正して保存
+  // @BeforeInsert()
+  // createDateReplaceJST() {
+  //   this.createdAt = convertJST();
+  //   this.save();
+  // }
+  //
+  // // 更新時間保存する前に日本時間の修正して保存
+  // @BeforeInsert()
+  // updateDateReplaceJST() {
+  //   this.updatedAt = convertJST();
+  //   this.save();
+  // }
 }

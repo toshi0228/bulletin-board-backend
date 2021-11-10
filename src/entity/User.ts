@@ -9,6 +9,8 @@ import {
   BeforeInsert,
 } from "typeorm";
 import { BulletinBoard } from "./BulletinBoard";
+import { Like } from "./like";
+import { convertJST } from "../helper";
 
 @Entity({ name: "user" })
 export class User extends BaseEntity {
@@ -27,6 +29,9 @@ export class User extends BaseEntity {
   @OneToMany(() => BulletinBoard, (bulletinBoard) => bulletinBoard.user)
   bulletinBoards: BulletinBoard[];
 
+  @OneToMany(() => Like, (like) => like.user)
+  likes: Like[];
+
   @CreateDateColumn()
   createdAt: Date;
 
@@ -34,21 +39,17 @@ export class User extends BaseEntity {
   // readonly updatedAt?: Date;
   updatedAt: Date;
 
-  // 作成時間保存する前に日本時間の修正して保存
+  // 作成時間保存する前に日本時間に修正して保存
   @BeforeInsert()
   createDateReplaceJST() {
-    let date = new Date();
-    date.setTime(date.getTime() + 1000 * 60 * 60 * 9); // JSTに変換
-    this.createdAt = date;
+    this.createdAt = convertJST();
     this.save();
   }
 
-  // 更新時間保存する前に日本時間の修正して保存
+  // 更新時間保存する前に日本時間に修正して保存
   @BeforeInsert()
   updateDateReplaceJST() {
-    let date = new Date();
-    date.setTime(date.getTime() + 1000 * 60 * 60 * 9); // JSTに変換
-    this.updatedAt = date;
+    this.updatedAt = convertJST();
     this.save();
   }
 }

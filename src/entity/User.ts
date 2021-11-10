@@ -36,7 +36,6 @@ export class User extends BaseEntity {
   createdAt: Date;
 
   @UpdateDateColumn()
-  // readonly updatedAt?: Date;
   updatedAt: Date;
 
   // 作成時間保存する前に日本時間に修正して保存

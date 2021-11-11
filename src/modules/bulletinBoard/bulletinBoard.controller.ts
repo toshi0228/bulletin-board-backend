@@ -54,10 +54,8 @@ export const editBulletinBoard: RequestHandler = async (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) return res.status(400).json("編集に失敗しました");
 
-  const editPostData = req.body;
-
   try {
-    const result = await BulletinBoardRepository.edit(editPostData);
+    const result = await BulletinBoardRepository.update(req.body.id, req.body);
     res.status(200).json({ result });
   } catch (e) {
     if (e.code === "ER_DATA_TOO_LONG") return res.status(400).json("140字までです");

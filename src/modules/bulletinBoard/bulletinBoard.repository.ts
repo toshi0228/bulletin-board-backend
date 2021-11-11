@@ -30,9 +30,9 @@ class BulletinBoardRepository {
   // =============================
   // idから投稿を編集する。
   // =============================
-  async edit(param: bulletinBoardEditType) {
+  async update(articleId: number, param: bulletinBoardEditType) {
     const result = await BulletinBoard.find({
-      id: Number(param.id),
+      id: Number(articleId),
     });
 
     await BulletinBoard.save({ ...result, ...param });

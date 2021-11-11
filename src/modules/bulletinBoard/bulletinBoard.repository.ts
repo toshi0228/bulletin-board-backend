@@ -1,8 +1,6 @@
 import { BulletinBoard } from "../../entity/BulletinBoard";
-import { User } from "../../entity/User";
 import { Like } from "../../entity/Like";
 import { bulletinBoardEditType, bulletinBoardCreateType } from "./bulletinBoard.type";
-import { protectionPersonalInfo } from "../../helper";
 import user from "../../routes/user";
 
 class BulletinBoardRepository {
@@ -46,12 +44,12 @@ class BulletinBoardRepository {
   // idから投稿を編集する。
   // =============================
   async update(articleId: number, param: bulletinBoardEditType) {
-    const result = await BulletinBoard.findOne({
+    const origin = await BulletinBoard.findOne({
       id: articleId,
     });
 
-    const post = await this.save({ ...result, ...param });
-    return post;
+    const result = await this.save({ ...origin, ...param });
+    return result;
   }
   // =============================
   // いいね作成

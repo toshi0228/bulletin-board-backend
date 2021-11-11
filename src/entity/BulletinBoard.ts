@@ -1,14 +1,6 @@
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  ManyToOne,
-  BaseEntity,
-  JoinColumn,
-  JoinTable,
-  ManyToMany,
-} from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany, BaseEntity, JoinColumn } from "typeorm";
 import { User } from "./User";
+import { Like } from "./Like";
 
 @Entity({ name: "bulletinBoard" })
 export class BulletinBoard extends BaseEntity {
@@ -28,7 +20,6 @@ export class BulletinBoard extends BaseEntity {
   @JoinColumn({ name: "userId" })
   user: User;
 
-  @ManyToMany(() => User)
-  @JoinTable()
-  liked: User[];
+  @OneToMany(() => Like, (like) => like.bulletinBoard)
+  likes: Like[];
 }

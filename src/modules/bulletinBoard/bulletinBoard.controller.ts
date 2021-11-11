@@ -3,8 +3,6 @@ import { bulletinBoardCreateType } from "./bulletinBoard.type";
 import BulletinBoardRepository from "./bulletinBoard.repository";
 import { decodedToken } from "../../helper";
 import { validationResult } from "express-validator";
-import { BulletinBoard } from "../../entity/BulletinBoard";
-import user from "../../routes/user";
 
 // ====================================
 // データの一覧取得
@@ -56,10 +54,8 @@ export const editBulletinBoard: RequestHandler = async (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) return res.status(400).json("編集に失敗しました");
 
-  const editPostData = req.body;
-
   try {
-    const result = await BulletinBoardRepository.edit(editPostData);
+    const result = await BulletinBoardRepository.update(req.body.id, req.body);
     res.status(200).json({ result });
   } catch (e) {
     if (e.code === "ER_DATA_TOO_LONG") return res.status(400).json("140字までです");
@@ -85,12 +81,12 @@ export const deleteBulletinBoard: RequestHandler = async (req, res, next) => {
 // いいね作成
 // ====================================
 
-export const createLikedBulletinBoard: RequestHandler = async (req, res, next) => {
+export const createLikeBulletinBoard: RequestHandler = async (req, res, next) => {
   // jwtからトークンを取得
   const userId = decodedToken(req.headers.authorization);
 
   try {
-    const result = await BulletinBoardRepository.createLiked({
+    const result = await BulletinBoardRepository.createLike({
       bulletinBoardId: Number(req.params.id),
       userId: Number(userId),
     });
@@ -104,16 +100,9 @@ export const createLikedBulletinBoard: RequestHandler = async (req, res, next) =
 // ====================================
 // いいね削除
 // ====================================
-export const deleteLikedBulletinBoard: RequestHandler = async (req, res, next) => {
-  // jwtからトークンを取得
-  const userId = decodedToken(req.headers.authorization);
-
+export const deleteLikeBulletinBoard: RequestHandler = async (req, res, next) => {
   try {
-    const result = await BulletinBoardRepository.deleteLiked({
-      bulletinBoardId: Number(req.params.id),
-      userId: Number(userId),
-    });
-
+    const result = await BulletinBoardRepository.deleteLike(req.params.id);
     res.status(200).json(result);
   } catch {
     res.status(400).json("失敗です");

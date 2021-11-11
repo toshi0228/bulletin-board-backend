@@ -16,14 +16,6 @@ class BulletinBoardRepository {
       order: { id: "DESC" },
     });
 
-    // 個人情報のemailとpassword等を削除する
-    BulletinBoards.map((BulletinBoard) => {
-      console.log("------");
-      console.log(BulletinBoard);
-      protectionPersonalInfo(BulletinBoard);
-      return BulletinBoard;
-    });
-
     return BulletinBoards;
   }
 
@@ -78,23 +70,6 @@ class BulletinBoardRepository {
   async deleteLike(id: string) {
     const deleteLike = await Like.delete(id);
     return deleteLike;
-
-    // const bulletinBoard = await BulletinBoard.findOne(param.bulletinBoardId, { relations: ["likes"] });
-    // const deleteUser = await User.findOne(param.userId);
-    //
-    // const newLikesUsers = bulletinBoard.likes.filter((likesUser) => {
-    //   return likesUser.id !== deleteUser.id;
-    // });
-    //
-    // bulletinBoard.likes = newLikesUsers;
-    // await bulletinBoard.save();
-    //
-    // // 個人情報のemailとpassword等を削除する;
-    // const deletedLikesUsers = newLikesUsers.map((user) => {
-    //   return { userId: user.id, name: user.name };
-    // });
-
-    return "deletedLikesUsers";
   }
 }
 

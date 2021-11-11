@@ -103,15 +103,8 @@ export const createLikeBulletinBoard: RequestHandler = async (req, res, next) =>
 // いいね削除
 // ====================================
 export const deleteLikeBulletinBoard: RequestHandler = async (req, res, next) => {
-  // jwtからトークンを取得
-  const userId = decodedToken(req.headers.authorization);
-
-  console.log("削除します");
-  console.log(req.body);
-
   try {
-    const result = await BulletinBoardRepository.deleteLike("8010");
-
+    const result = await BulletinBoardRepository.deleteLike(req.params.id);
     res.status(200).json(result);
   } catch {
     res.status(400).json("失敗です");

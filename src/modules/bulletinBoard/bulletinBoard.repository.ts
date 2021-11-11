@@ -28,18 +28,6 @@ class BulletinBoardRepository {
   }
 
   // =============================
-  // idから投稿を編集する。
-  // =============================
-  async update(articleId: number, param: bulletinBoardEditType) {
-    const result = await BulletinBoard.find({
-      id: Number(articleId),
-    });
-
-    await BulletinBoard.save({ ...result, ...param });
-    return result;
-  }
-
-  // =============================
   // 新規保存
   // =============================
   async save(param: bulletinBoardCreateType) {
@@ -54,6 +42,17 @@ class BulletinBoardRepository {
     return deleteBulletinBoard;
   }
 
+  // =============================
+  // idから投稿を編集する。
+  // =============================
+  async update(articleId: number, param: bulletinBoardEditType) {
+    const result = await BulletinBoard.findOne({
+      id: articleId,
+    });
+
+    const post = await this.save({ ...result, ...param });
+    return post;
+  }
   // =============================
   // いいね作成
   // =============================

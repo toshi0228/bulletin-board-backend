@@ -31,4 +31,14 @@ export class Like extends BaseEntity {
   @ManyToOne(() => BulletinBoard, (bulletinBoard) => bulletinBoard.likes)
   @JoinColumn({ name: "bulletinBoardId" })
   bulletinBoard: BulletinBoard;
+
+  @CreateDateColumn()
+  createdAt: Date;
+
+  // 作成時間保存する前に日本時間に修正して保存
+  @BeforeInsert()
+  createDateReplaceJST() {
+    this.createdAt = convertJST();
+    this.save();
+  }
 }

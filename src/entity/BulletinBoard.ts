@@ -1,6 +1,19 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany, BaseEntity, JoinColumn } from "typeorm";
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  OneToMany,
+  BaseEntity,
+  JoinColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
+  BeforeInsert,
+  BeforeUpdate,
+} from "typeorm";
 import { User } from "./User";
 import { Like } from "./Like";
+import { convertJST } from "../helper";
 
 @Entity({ name: "bulletinBoard" })
 export class BulletinBoard extends BaseEntity {
@@ -22,4 +35,24 @@ export class BulletinBoard extends BaseEntity {
 
   @OneToMany(() => Like, (like) => like.bulletinBoard)
   likes: Like[];
+
+  @CreateDateColumn()
+  createdAt: Date;
+
+  @UpdateDateColumn()
+  updatedAt: Date;
+
+  // 作成時間保存する前に日本時間に修正して保存
+  @BeforeInsert()
+  createDateReplaceJST() {
+    this.createdAt = convertJST();
+    this.save();
+  }
+
+  // 更新時間保存する前に日本時間に修正して保存
+  @BeforeUpdate()
+  updateDateReplaceJST() {
+    this.updatedAt = convertJST();
+    this.save();
+  }
 }

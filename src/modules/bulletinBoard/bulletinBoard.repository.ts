@@ -1,6 +1,7 @@
 import { BulletinBoard } from "../../entity/BulletinBoard";
 import { Like } from "../../entity/Like";
 import { bulletinBoardEditType, bulletinBoardCreateType } from "./bulletinBoard.type";
+import bulletinBoardService from "./bulletinBoard.service";
 
 class BulletinBoardRepository {
   // =============================
@@ -13,7 +14,9 @@ class BulletinBoardRepository {
       order: { id: "DESC" },
     });
 
-    return BulletinBoards;
+    const result = bulletinBoardService.getList(BulletinBoards);
+
+    return result;
   }
 
   // =============================

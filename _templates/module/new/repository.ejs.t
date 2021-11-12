@@ -14,30 +14,36 @@ import {
 } from "./<%= h.changeCase.lower(name)%>.type"
 
 class <%= h.changeCase.pascal(name)%>Repository {
-  async findAll() {
-    const origin = await <%= h.changeCase.pascal(name) %>.findOne()
+  async getList() {
+    const origin = await <%= h.changeCase.pascal(name) %>.find()
     return "";
   }
 
-  async findOne(id: string) {
+  async getById(id: string) {
     const origin = await <%= h.changeCase.pascal(name) %>.findOne({ id: parseInt(id) });
-    return "";
+    return origin;
   }
 
-  async save(param: Create<%= h.changeCase.pascal(name) %>Request) {
+  async create(param: Create<%= h.changeCase.pascal(name) %>Request) {
     const new<%= h.changeCase.pascal(name) %> = new <%= h.changeCase.pascal(name) %>();
     const new<%= h.changeCase.pascal(name) %>Param = await <%= h.changeCase.pascal(name) %>.create({ ...new<%= h.changeCase.pascal(name) %>, ...param });
     const result = await new<%= h.changeCase.pascal(name) %>Param.save();
-    return "";
+    return result;
   }
 
-  async edit(param: Update<%= h.changeCase.pascal(name) %>Request) {
-    return "";
+  async update(id: string, param: Update<%= h.changeCase.pascal(name) %>Request) {
+    const origin = await <%= h.changeCase.pascal(name) %>.findOne({
+      id: parseInt(id),
+    });
+
+    const result = await this.create({ ...origin, ...param });
+    return result;
   }
 
-  async delete(id: string) {
+
+  async deleteById(id: string) {
     const origin = await <%= h.changeCase.pascal(name) %>.delete({ id: parseInt(id) });
-    return "";
+    return origin;
   }
 }
 

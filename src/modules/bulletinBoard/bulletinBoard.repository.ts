@@ -1,7 +1,6 @@
 import { BulletinBoard } from "../../entity/BulletinBoard";
 import { Like } from "../../entity/Like";
 import { bulletinBoardEditType, bulletinBoardCreateType } from "./bulletinBoard.type";
-import user from "../../routes/user";
 
 class BulletinBoardRepository {
   // =============================

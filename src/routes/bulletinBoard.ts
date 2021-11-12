@@ -14,14 +14,12 @@ import {
   editBulletinBoardValidator,
 } from "../modules/bulletinBoard/bulletinBoard.validator";
 
-const router = Router();
+export const bulletinBoardRoutes = Router();
 
-router.get("/", authMiddleware, getListBulletinBoard);
-router.get("/:id", authMiddleware, getByIdBulletinBoard);
-router.post("/create", authMiddleware, createBulletinBoardValidator, createBulletinBoard);
-router.patch("/edit/:id", authMiddleware, editBulletinBoardValidator, editBulletinBoard);
-router.delete("/delete/:id", authMiddleware, deleteBulletinBoard);
-router.post("/like/:id", authMiddleware, createLikeBulletinBoard); // いいね作成
-router.delete("/like/:id", authMiddleware, deleteLikeBulletinBoard); // いいね削除
-
-export default router;
+bulletinBoardRoutes.get("/", authMiddleware, getListBulletinBoard);
+bulletinBoardRoutes.get("/:id", authMiddleware, getByIdBulletinBoard);
+bulletinBoardRoutes.post("/create", authMiddleware, createBulletinBoardValidator, createBulletinBoard);
+bulletinBoardRoutes.patch("/edit/:id", authMiddleware, editBulletinBoardValidator, editBulletinBoard);
+bulletinBoardRoutes.delete("/delete/:id", authMiddleware, deleteBulletinBoard);
+bulletinBoardRoutes.post("/like/:id", authMiddleware, createLikeBulletinBoard); // いいね作成
+bulletinBoardRoutes.delete("/like/:id", authMiddleware, deleteLikeBulletinBoard); // いいね削除

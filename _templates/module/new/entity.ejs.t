@@ -9,7 +9,7 @@ import {
   Column,
 } from "typeorm";
 
-@Entity({ name: "<%= h.changeCase.lower(name)%>" })
+@Entity({ name: "<%= h.changeCase.camelCase(name)%>" })
 export class <%= h.changeCase.pascal(name)%> extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;

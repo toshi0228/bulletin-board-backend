@@ -1,5 +1,5 @@
 ---
-to: src/modules/<%= h.changeCase.camelCase(name)%>/<%= h.changeCase.lower(name)%>.service.ts
+to: src/modules/<%= h.changeCase.camelCase(name)%>/<%= h.changeCase.camelCase(name)%>.service.ts
 unless_exists: true
 ---
 import { <%= h.changeCase.pascal(name) %> } from "../../entity/<%= h.changeCase.pascal(name) %>";

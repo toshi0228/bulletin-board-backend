@@ -1,6 +1,6 @@
 module.exports = [
   {
-    message: "Entity名は？ ex) article",
+    message: "Entity名は？ ex) article, bulletinBoard",
     name: "name",
     type: "input",
   },

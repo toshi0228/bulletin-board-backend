@@ -7,6 +7,10 @@ import {
   BaseEntity,
   PrimaryGeneratedColumn,
   Column,
+  CreateDateColumn,
+  UpdateDateColumn,
+  BeforeInsert,
+  BeforeUpdate,
 } from "typeorm";
 
 @Entity({ name: "<%= h.changeCase.camelCase(name)%>" })

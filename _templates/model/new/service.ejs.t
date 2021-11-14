@@ -27,12 +27,12 @@ class <%= h.changeCase.pascal(name)%>Service {
     return param;
   }
 
-  update(param: <%= h.changeCase.pascal(name) %>): Update<%= h.changeCase.pascal(name) %>Response {
+  update(param: Create<%= h.changeCase.pascal(name) %>Response): Update<%= h.changeCase.pascal(name) %>Response {
     return param;
   }
 
-  deleteById(param: <%= h.changeCase.pascal(name) %>): Delete<%= h.changeCase.pascal(name) %>ByIdResponse {
-    return param;
+  deleteById(id: string): Delete<%= h.changeCase.pascal(name) %>ByIdResponse {
+    return { id };
   }
 }
 

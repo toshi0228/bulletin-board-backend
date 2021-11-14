@@ -14,6 +14,6 @@ export const <%= h.changeCase.camelCase(name)%>Routes = Router();
 
 <%= h.changeCase.camelCase(name)%>Routes.get("/", authMiddleware, <%= h.changeCase.pascal(name)%>Controller.getList);
 <%= h.changeCase.camelCase(name)%>Routes.get("/:id", authMiddleware, <%= h.changeCase.pascal(name)%>Controller.getById);
-<%= h.changeCase.camelCase(name)%>Routes.post("/create", authMiddleware, create<%= h.changeCase.pascal(name)%>Validator, <%= h.changeCase.pascal(name)%>Controller.create);
-<%= h.changeCase.camelCase(name)%>Routes.patch("/update/:id", authMiddleware, update<%= h.changeCase.pascal(name)%>Validator, <%= h.changeCase.pascal(name)%>Controller.update);
-<%= h.changeCase.camelCase(name)%>Routes.delete("/delete/:id", authMiddleware, <%= h.changeCase.pascal(name)%>Controller.deleteById);
+<%= h.changeCase.camelCase(name)%>Routes.post("/", authMiddleware, create<%= h.changeCase.pascal(name)%>Validator, <%= h.changeCase.pascal(name)%>Controller.create);
+<%= h.changeCase.camelCase(name)%>Routes.patch("/:id", authMiddleware, update<%= h.changeCase.pascal(name)%>Validator, <%= h.changeCase.pascal(name)%>Controller.update);
+<%= h.changeCase.camelCase(name)%>Routes.delete("/:id", authMiddleware, <%= h.changeCase.pascal(name)%>Controller.deleteById);

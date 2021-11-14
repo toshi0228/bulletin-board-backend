@@ -4,15 +4,7 @@ unless_exists: true
 ---
 import { <%= h.changeCase.pascal(name) %> } from "../../entity/<%= h.changeCase.pascal(name) %>";
 import <%= h.changeCase.camelCase(name)%>Service from "./<%= h.changeCase.camelCase(name)%>.service";
-import {
-  Get<%= h.changeCase.pascal(name) %>Response,
-  Get<%= h.changeCase.pascal(name) %>ByIdResponse,
-  Create<%= h.changeCase.pascal(name) %>Request,
-  Create<%= h.changeCase.pascal(name) %>Response,
-  Update<%= h.changeCase.pascal(name) %>Request,
-  Update<%= h.changeCase.pascal(name) %>Response,
-  Delete<%= h.changeCase.pascal(name) %>ByIdResponse,
-} from "./<%= h.changeCase.camelCase(name)%>.type"
+import { Create<%= h.changeCase.pascal(name) %>Request, Update<%= h.changeCase.pascal(name) %>Request } from "./<%= h.changeCase.camelCase(name)%>.type"
 
 // =============================
 // DBの操作の処理
@@ -48,8 +40,8 @@ class <%= h.changeCase.pascal(name)%>Repository {
   }
 
   async deleteById(id: string) {
-    const origin = await <%= h.changeCase.pascal(name) %>.delete({ id: parseInt(id) });
-    const result = <%= h.changeCase.camelCase(name)%>Service.deleteById(origin);
+    await <%= h.changeCase.pascal(name) %>.delete({ id: parseInt(id) });
+    const result = <%= h.changeCase.camelCase(name)%>Service.deleteById(id);
     return result;
   }
 }

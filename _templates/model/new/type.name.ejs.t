@@ -3,7 +3,7 @@ to: src/modules/<%= h.changeCase.camelCase(name)%>/<%= h.changeCase.camelCase(na
 unless_exists: true
 ---
 
-export interface Get<%= h.changeCase.pascal(name) %>Response {}[]
+export type Get<%= h.changeCase.pascal(name) %>Response = Get<%= h.changeCase.pascal(name) %>ByIdResponseResponse[];
 
 export interface Get<%= h.changeCase.pascal(name) %>ByIdResponse {}
 
@@ -17,3 +17,6 @@ export interface Update<%= h.changeCase.pascal(name) %>Response {}
 
 export interface Delete<%= h.changeCase.pascal(name) %>ByIdResponse {}
 
+export interface RootParams {
+  id: string;
+}

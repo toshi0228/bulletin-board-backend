@@ -6,9 +6,7 @@ import { <%= h.changeCase.pascal(name) %> } from "../../entity/<%= h.changeCase.
 import {
   Get<%= h.changeCase.pascal(name) %>Response,
   Get<%= h.changeCase.pascal(name) %>ByIdResponse,
-  Create<%= h.changeCase.pascal(name) %>Request,
   Create<%= h.changeCase.pascal(name) %>Response,
-  Update<%= h.changeCase.pascal(name) %>Request,
   Update<%= h.changeCase.pascal(name) %>Response,
   Delete<%= h.changeCase.pascal(name) %>ByIdResponse,
 } from "./<%= h.changeCase.camelCase(name)%>.type"
@@ -17,23 +15,23 @@ import {
 // DB操作をした結果を加工
 // =============================
 class <%= h.changeCase.pascal(name)%>Service {
-  async getList(param) {
+  getList(param: <%= h.changeCase.pascal(name) %>[]): Get<%= h.changeCase.pascal(name) %>Response {
     return param;
   }
 
-  async getById(param) {
+  getById(param: <%= h.changeCase.pascal(name) %>): Get<%= h.changeCase.pascal(name) %>ByIdResponse {
     return param;
   }
 
-  async create(param) {
+  create(param: <%= h.changeCase.pascal(name) %>): Create<%= h.changeCase.pascal(name) %>Response  {
     return param;
   }
 
-  async update(param) {
+  update(param: <%= h.changeCase.pascal(name) %>): Update<%= h.changeCase.pascal(name) %>Response {
     return param;
   }
 
-  async deleteById(param) {
+  deleteById(param: <%= h.changeCase.pascal(name) %>): Delete<%= h.changeCase.pascal(name) %>ByIdResponse {
     return param;
   }
 }

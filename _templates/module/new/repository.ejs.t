@@ -14,6 +14,9 @@ import {
   Delete<%= h.changeCase.pascal(name) %>ByIdResponse,
 } from "./<%= h.changeCase.camelCase(name)%>.type"
 
+// =============================
+// DBの操作の処理
+// =============================
 class <%= h.changeCase.pascal(name)%>Repository {
   async getList() {
     const origin = await <%= h.changeCase.pascal(name) %>.find()

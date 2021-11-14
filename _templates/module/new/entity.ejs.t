@@ -12,6 +12,7 @@ import {
   BeforeInsert,
   BeforeUpdate,
 } from "typeorm";
+import { convertJST } from "../helper";
 
 @Entity({ name: "<%= h.changeCase.camelCase(name)%>" })
 export class <%= h.changeCase.pascal(name)%> extends BaseEntity {

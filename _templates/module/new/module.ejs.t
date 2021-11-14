@@ -1,5 +1,5 @@
 ---
-to: src/modules/<%= h.changeCase.lower(name)%>/<%= h.changeCase.lower(name)%>.module.ts
+to: src/modules/<%= h.changeCase.camelCase(name)%>/<%= h.changeCase.camelCase(name)%>.module.ts
 unless_exists: true
 ---
 

@@ -13,6 +13,9 @@ import {
   Delete<%= h.changeCase.pascal(name) %>ByIdResponse,
 } from "./<%= h.changeCase.camelCase(name)%>.type"
 
+// =============================
+// DB操作をした結果を加工
+// =============================
 class <%= h.changeCase.pascal(name)%>Service {
   async getList(param) {
     return param;

@@ -1,5 +1,5 @@
 ---
-to: src/modules/<%= h.changeCase.camelCase(name)%>/<%= h.changeCase.camelCase(name)%>.validations.ts
+to: src/modules/<%= h.changeCase.camelCase(name)%>/<%= h.changeCase.camelCase(name)%>.validation.ts
 unless_exists: true
 ---
 import { check } from "express-validator";

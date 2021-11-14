@@ -42,17 +42,16 @@ export class BulletinBoard extends BaseEntity {
   @UpdateDateColumn()
   updatedAt: Date;
 
-  // 作成時間保存する前に日本時間に修正して保存
+  // 作成時間を保存する前に日本時間に修正して保存
   @BeforeInsert()
   createDateReplaceJST() {
     this.createdAt = convertJST();
-    this.save();
   }
 
-  // 更新時間保存する前に日本時間に修正して保存
+  // 更新時間を保存する前に日本時間に修正して保存
+  @BeforeInsert()
   @BeforeUpdate()
   updateDateReplaceJST() {
     this.updatedAt = convertJST();
-    this.save();
   }
 }

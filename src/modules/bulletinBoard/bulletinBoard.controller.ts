@@ -108,3 +108,15 @@ export const deleteLikeBulletinBoard: RequestHandler = async (req, res, next) =>
     res.status(400).json("失敗です");
   }
 };
+
+// ====================================
+// 画像の登録
+// ====================================
+export const createImageBulletinBoard: RequestHandler = async (req, res, next) => {
+  try {
+    const result = await BulletinBoardRepository.deleteLike(req.params.id);
+    res.status(200).json(result);
+  } catch {
+    res.status(400).json("失敗です");
+  }
+};

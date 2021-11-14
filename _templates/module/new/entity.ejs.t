@@ -16,4 +16,23 @@ export class <%= h.changeCase.pascal(name)%> extends BaseEntity {
 
   @Column()
   title: string;
+
+  @CreateDateColumn()
+  createdAt: Date;
+
+  @UpdateDateColumn()
+  updatedAt: Date;
+
+  // 作成時間を保存する前に日本時間に修正して保存
+  @BeforeInsert()
+  createDateReplaceJST() {
+    this.createdAt = convertJST();
+  }
+
+  // 更新時間を保存する前に日本時間に修正して保存
+  @BeforeInsert()
+  @BeforeUpdate()
+  updateDateReplaceJST() {
+    this.updatedAt = convertJST();
+  }
 }

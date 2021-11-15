@@ -16,7 +16,7 @@ import {
 } from "../modules/bulletinBoard/bulletinBoard.validator";
 import * as multer from "multer";
 
-const upload = multer({ dest: "uploads/" }); // multer configuration
+const upload = multer({ dest: "uploads/" }); // multer configuration ファイルが保存されるフォルダー場所
 
 export const bulletinBoardRoutes = Router();
 
@@ -27,4 +27,4 @@ bulletinBoardRoutes.patch("/edit/:id", authMiddleware, editBulletinBoardValidato
 bulletinBoardRoutes.delete("/delete/:id", authMiddleware, deleteBulletinBoard);
 bulletinBoardRoutes.post("/like/:id", authMiddleware, createLikeBulletinBoard); // いいね作成
 bulletinBoardRoutes.delete("/like/:id", authMiddleware, deleteLikeBulletinBoard); // いいね削除
-bulletinBoardRoutes.delete("/image", upload.single("image"), createImageBulletinBoard); // 画像を登録
+bulletinBoardRoutes.post("/image", upload.single("image"), createImageBulletinBoard); // 画像を登録

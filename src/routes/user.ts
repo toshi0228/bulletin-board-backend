@@ -1,9 +1,7 @@
 import { Router } from "express";
 import { createUser, login } from "../modules/user/user.module";
 
-const router = Router();
+export const usersRoutes = Router();
 
-router.post("/sign_up", createUser);
-router.post("/sign_in", login);
-
-export default router;
+usersRoutes.post("/sign_up", createUser);
+usersRoutes.post("/sign_in", login);

@@ -1,40 +1,26 @@
+---
+to: src/entity/<%= h.changeCase.pascal(name)%>.ts
+unless_exists: true
+---
 import {
   Entity,
+  BaseEntity,
   PrimaryGeneratedColumn,
   Column,
-  ManyToOne,
-  OneToMany,
-  BaseEntity,
-  JoinColumn,
   CreateDateColumn,
   UpdateDateColumn,
   BeforeInsert,
   BeforeUpdate,
 } from "typeorm";
-import { User } from "./User";
-import { Like } from "./Like";
 import { convertJST } from "../helper";
 
-@Entity({ name: "bulletinBoard" })
-export class BulletinBoard extends BaseEntity {
+@Entity({ name: "<%= h.changeCase.camelCase(name)%>" })
+export class <%= h.changeCase.pascal(name)%> extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
   title: string;
-
-  @Column({ length: 140 })
-  contents: string;
-
-  @Column()
-  userId: number;
-
-  @ManyToOne(() => User, (user) => user.bulletinBoards)
-  @JoinColumn({ name: "userId" })
-  user: User;
-
-  @OneToMany(() => Like, (like) => like.bulletinBoard)
-  likes: Like[];
 
   @CreateDateColumn()
   createdAt: Date;

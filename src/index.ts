@@ -2,7 +2,8 @@ import "reflect-metadata";
 import { createConnection } from "typeorm";
 import * as express from "express";
 import * as bodyParser from "body-parser";
-import { usersRoutes, bulletinBoardRoutes } from "./routes";
+import routes from "./routes";
+
 import * as cors from "cors";
 
 createConnection()
@@ -16,8 +17,7 @@ createConnection()
     app.use(cors());
 
     // ルーティング
-    app.use("/user", usersRoutes);
-    app.use("/bulletin-board", bulletinBoardRoutes);
+    app.use("/", routes);
 
     // start express server
     app.listen(3000, () => console.log("ポート3000で接続, http://localhost:3000"));

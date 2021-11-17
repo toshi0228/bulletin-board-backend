@@ -7,6 +7,7 @@ import {
   UpdateDateColumn,
   OneToMany,
   BeforeInsert,
+  BeforeUpdate,
 } from "typeorm";
 import { BulletinBoard } from "./BulletinBoard";
 import { Like } from "./Like";
@@ -42,13 +43,12 @@ export class User extends BaseEntity {
   @BeforeInsert()
   createDateReplaceJST() {
     this.createdAt = convertJST();
-    this.save();
   }
 
   // 更新時間保存する前に日本時間に修正して保存
   @BeforeInsert()
+  @BeforeUpdate()
   updateDateReplaceJST() {
     this.updatedAt = convertJST();
-    this.save();
   }
 }
